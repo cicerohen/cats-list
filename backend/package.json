@@ -1,0 +1,32 @@
+{
+  "name": "@app/backend",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist/handler.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch",
+    "sls:deploy": "serverless deploy --verbose",
+    "sls:remove": "serverless remove --verbose",
+    "sls:invoke": "serverless invoke local"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.363.0",
+    "@aws-sdk/client-s3": "^3.367.0",
+    "@aws-sdk/lib-dynamodb": "^3.365.0",
+    "@app/types": "*",
+    "aws-lambda": "^1.0.7",
+    "lambda-multipart-parser": "^1.0.1",
+    "nanoid": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.119",
+    "@types/node": "^20.3.3",
+    "dotenv": "^16.0.3",
+    "serverless": "^3.31.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-functions-base-path": "^1.0.33",
+    "serverless-s3-cleaner": "^2.0.2",
+    "typescript": "^5.0.2"
+  }
+}

@@ -1,0 +1,160 @@
+service: react-aws
+useDotenv: true
+frameworkVersion: "3"
+
+plugins:
+  - serverless-s3-cleaner
+  - serverless-dotenv-plugin
+  - serverless-functions-base-path
+
+custom:
+  functionsBasePath: dist
+  serverless-s3-cleaner:
+    buckets:
+      - react-aws-uploads
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN
+      - NODE_ENV
+    required:
+      env:
+        - REGION
+      file: true
+
+provider:
+  name: aws
+  stage: prod
+  region: ${env:REGION,"us-east-1"}
+  runtime: nodejs14.x
+  httpApi:
+    name: react-aws
+    cors: true
+  environment:
+    BUCKET_NAME: react-aws-uploads
+  iam:
+    role:
+      name: react-aws-role
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:Put*"
+            - "s3:Get*"
+            - "s3:List*"
+            - "s3:Delete*"
+            - "s3:GetBucketPolicy"
+            - "s3:PutBucketPolicy"
+          Resource:
+            - arn:aws:s3:::react-aws-uploads/*
+            - arn:aws:s3:::react-aws-uploads
+        - Effect: "Allow"
+          Action:
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:DeleteItem
+            - dynamodb:UpdateItem
+          Resource:
+            - arn:aws:dynamodb:*:*:table/*
+        - Effect: "Allow"
+          Action:
+            - execute-api:Invoke
+          Resource:
+            - "arn:aws:execute-api:*:*:*"
+
+functions:
+  createCat:
+    handler: handler.createCat
+    events:
+      - httpApi:
+          path: /cats
+          method: "POST"
+  listCats:
+    handler: handler.listCats
+    events:
+      - httpApi:
+          path: /cats
+          method: "GET"
+  showCat:
+    handler: handler.showCat
+    events:
+      - httpApi:
+          path: /cats/{id}
+          method: "GET"
+  editCat:
+    handler: handler.editCat
+    events:
+      - httpApi:
+          path: /cats/{id}
+          method: "PATCH"
+  deleteCat:
+    handler: handler.deleteCat
+    events:
+      - httpApi:
+          path: /cats/{id}
+          method: "DELETE"
+  listBreeds:
+    handler: handler.listBreeds
+    events:
+      - httpApi:
+          path: /breeds
+          method: "GET"
+  listAges:
+    handler: handler.listAges
+    events:
+      - httpApi:
+          path: /ages
+          method: "GET"
+  uploadPhotos:
+    handler: handler.uploadPhotos
+    events:
+      - httpApi:
+          path: /photos
+          method: "POST"
+
+resources:
+  Resources:
+    CatsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Cats
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    UploadsBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: react-aws-uploads
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          BlockPublicPolicy: false
+          IgnorePublicAcls: false
+          RestrictPublicBuckets: false
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+              AllowedOrigins:
+                - "*"
+    UploadsBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      DependsOn: UploadsBucket
+      Properties:
+        Bucket: react-aws-uploads
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: "*"
+              Action: s3:GetObject
+              Resource: "arn:aws:s3:::react-aws-uploads/*"
