@@ -1,14 +1,14 @@
 import * as Yup from "yup";
-import { useFormik, FormikConfig } from "formik";
+import { useMemo } from "react";
+import { useFormik, FormikConfig, FormikState } from "formik";
+import { createEditor } from "slate";
 
-import { Breed, Age } from "@app/types";
+import { withReact } from "slate-react";
+import { Cat } from "@app/types";
 
-export type Values = {
-  id: string;
-  name: string;
-  breed: Breed;
-  age: Age;
-};
+import { resetEditor } from "../services/editor-api";
+
+export type Values = Omit<Cat, "thumbnail">;
 
 const Schema = Yup.object({
   name: Yup.string().required("Name is required"),
@@ -26,18 +26,28 @@ const Schema = Yup.object({
 
 export const usePetEditForm = ({
   onSubmit,
-}: Pick<FormikConfig<Values>, "onSubmit">) => {
-  return useFormik<Values>({
-    initialValues: {
-      id: "",
-      name: "",
-      breed: { id: 0, name: "" },
-      age: { id: 0, name: "" },
-    },
+  initialValues,
+}: Pick<FormikConfig<Values>, "onSubmit" | "initialValues">) => {
+  const editor = useMemo(() => withReact(createEditor()), []);
 
+  const formik = useFormik<Values>({
+    initialValues,
     onSubmit,
     validationSchema: Schema,
     validateOnBlur: true,
     validateOnChange: false,
   });
+
+  const resetForm = (nextState?: Partial<FormikState<Values>>) => {
+    if (nextState?.values?.description) {
+      resetEditor(editor, JSON.parse(nextState.values.description));
+    }
+    formik.resetForm(nextState);
+  };
+
+  return {
+    ...formik,
+    editor,
+    resetForm,
+  };
 };

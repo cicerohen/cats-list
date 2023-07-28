@@ -31,7 +31,7 @@ const output = (statusCode, body) => {
 };
 export const createCat = (event) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, breed, age } = JSON.parse(event.body || "{}");
+        const { name, breed, age, description } = JSON.parse(event.body || "{}");
         const id = nanoid();
         const putCommand = new PutCommand({
             TableName: "Cats",
@@ -40,6 +40,7 @@ export const createCat = (event) => __awaiter(void 0, void 0, void 0, function* 
                 name,
                 breed,
                 age,
+                description,
             },
         });
         yield docClient.send(putCommand);
@@ -63,7 +64,7 @@ export const listCats = () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield docClient.send(new ScanCommand({
             TableName: "Cats",
         }));
-        return output(500, { data: response.Items });
+        return output(200, { data: response.Items });
     }
     catch (err) {
         return output(400, {
@@ -95,17 +96,18 @@ export const editCat = (event) => __awaiter(void 0, void 0, void 0, function* ()
     var _a;
     try {
         const { id } = event.pathParameters;
-        const { name, breed, age } = JSON.parse((_a = event.body) !== null && _a !== void 0 ? _a : "{}");
+        const { name, breed, age, description } = JSON.parse((_a = event.body) !== null && _a !== void 0 ? _a : "{}");
         const command = new UpdateCommand({
             TableName: "Cats",
             Key: {
                 id,
             },
-            UpdateExpression: "set #name = :name, breed = :breed, age = :age",
+            UpdateExpression: "set #name = :name, breed = :breed, age = :age, description= :description",
             ExpressionAttributeValues: {
                 ":name": name,
                 ":breed": breed,
                 ":age": age,
+                ":description": description,
             },
             ExpressionAttributeNames: {
                 "#name": "name",

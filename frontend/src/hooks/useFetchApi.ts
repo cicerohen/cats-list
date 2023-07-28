@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {HTTPMethod} from "@app/types"
+import { HTTPMethod } from "@app/types";
 const API_BASE = import.meta.env.VITE_API_BASE;
 
 export const defaultHeaders = {
@@ -10,16 +10,16 @@ type Options = Parameters<typeof fetch>[1];
 
 type Data = object | Array<object>;
 
-export type Return<D extends Data = Data, E  extends Error =  Error> = {
+export type Return<D extends Data = Data, E extends Error = Error> = {
   response: {
-    data?: D,
-    error?: E
-  },
-  isFetching: boolean
-  startFetch: (body?: BodyInit) => void
+    data?: D;
+    error?: E;
+  };
+  isFetching: boolean;
+  startFetch: (body?: BodyInit) => void;
 };
 
-export const useFetchApi= <R extends Return = Return> (
+export const useFetchApi = <R extends Return = Return>(
   resource: string,
   method: HTTPMethod = "GET",
   options?: Options
@@ -54,5 +54,5 @@ export const useFetchApi= <R extends Return = Return> (
     isFetching,
     response,
     startFetch,
-  } as unknown as  Omit<Return, keyof R> & R
+  } as unknown as Omit<Return, keyof R> & R;
 };

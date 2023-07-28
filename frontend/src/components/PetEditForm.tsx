@@ -1,25 +1,16 @@
-import {
-  FormikState,
-  FormikHandlers,
-  FormikHelpers,
-  FormikSharedConfig,
-} from "formik";
 import { Input } from "./Input";
 import { Field } from "./Field";
 import { BreedSelect } from "./BreedSelect";
 import { AgeSelect } from "./AgeSelect";
-import { Editor } from "./Editor";
-import { Values } from "../hooks/usePetEditForm";
+import { CatDescriptionEditor } from "./CatDescriptionEditor";
+import { usePetEditForm } from "../hooks/usePetEditForm";
 
 import { Breed, Age } from "@app/types";
 
-export type Props = FormikHandlers &
-  FormikHelpers<Values> &
-  FormikState<Values> &
-  FormikSharedConfig<Values> & {
-    breeds: Breed[];
-    ages: Age[];
-  };
+export type Props = ReturnType<typeof usePetEditForm> & {
+  breeds: Breed[];
+  ages: Age[];
+};
 
 export const PetEditForm = ({
   handleSubmit,
@@ -33,11 +24,12 @@ export const PetEditForm = ({
   errors,
   breeds,
   ages,
+  editor,
 }: Props) => {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <Field
-        label="Pet name"
+        label="Cat name"
         invalid={!!errors.name}
         errorMessage={errors.name}
       >
@@ -50,7 +42,7 @@ export const PetEditForm = ({
         />
       </Field>
       <Field
-        label="Pet breed"
+        label="Cat breed"
         invalid={!!errors.breed}
         errorMessage={errors.breed}
       >
@@ -70,7 +62,7 @@ export const PetEditForm = ({
         />
       </Field>
 
-      <Field label="Pet age" invalid={!!errors.age} errorMessage={errors.age}>
+      <Field label="Cat age" invalid={!!errors.age} errorMessage={errors.age}>
         <AgeSelect
           ages={ages}
           value={values.age}
@@ -86,8 +78,13 @@ export const PetEditForm = ({
         />
       </Field>
 
-      <Field label="Tell me more about your cat" invalid={!!errors.age}>
-        <Editor />
+      <Field label="Describe your cat" invalid={!!errors.age}>
+        <CatDescriptionEditor
+          editor={editor}
+          onChange={(e) => {
+            setFieldValue("description", JSON.stringify(e));
+          }}
+        />
       </Field>
 
       <div className="flex space-x-2">

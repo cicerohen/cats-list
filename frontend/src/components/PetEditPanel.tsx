@@ -15,6 +15,8 @@ export const PetEditPanel = ({ isOpen = true, formProps, onClose }: Props) => {
     document.body.style.overflow = (isOpen && "hidden") || "";
   }, [isOpen]);
 
+  const title = `${(formProps.values.id && "Edit cat") || "Add cat"}`;
+
   return createPortal(
     <section
       className={twMerge(
@@ -22,9 +24,9 @@ export const PetEditPanel = ({ isOpen = true, formProps, onClose }: Props) => {
         (isOpen && "translate-x-0") || "translate-x-full"
       )}
     >
-      <header className="sticky top-0 border-b border-b-gray-200 bg-white">
+      <header className="sticky z-10 top-0 border-b border-b-gray-200 bg-white">
         <div className="flex h-20 items-center justify-between px-8 lg:container lg:mx-auto lg:px-0">
-          <h3 className="text-3xl font-semibold">Add</h3>
+          <h3 className="text-3xl font-semibold">{title}</h3>
           <button
             onClick={onClose}
             className="flex items-center rounded-md px-3 py-2 text-sm font-semibold"
@@ -33,8 +35,10 @@ export const PetEditPanel = ({ isOpen = true, formProps, onClose }: Props) => {
           </button>
         </div>
       </header>
-      <div className="h-2/12 p-8 lg:container lg:mx-auto lg:px-0">
-        <PetEditForm {...formProps} />
+      <div className="absolute top-0 pt-24 px-8 pb-8 w-full h-full overflow-y-auto ">
+        <div className="lg:container lg:mx-auto">
+          <PetEditForm {...formProps} />
+        </div>
       </div>
     </section>,
     document.body

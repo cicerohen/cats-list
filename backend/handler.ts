@@ -44,7 +44,7 @@ export const createCat = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
-    const { name, breed, age } = JSON.parse(event.body || "{}");
+    const { name, breed, age, description } = JSON.parse(event.body || "{}");
 
     const id = nanoid();
 
@@ -55,6 +55,7 @@ export const createCat = async (
         name,
         breed,
         age,
+        description,
       },
     });
 
@@ -85,7 +86,7 @@ export const listCats = async (): Promise<APIGatewayProxyResult> => {
       })
     );
 
-    return output(500, { data: response.Items });
+    return output(200, { data: response.Items });
   } catch (err) {
     return output(400, {
       error: err.message,
@@ -123,18 +124,20 @@ export const editCat = async (
 ): Promise<APIGatewayProxyResult> => {
   try {
     const { id } = event.pathParameters;
-    const { name, breed, age } = JSON.parse(event.body ?? "{}");
+    const { name, breed, age, description } = JSON.parse(event.body ?? "{}");
 
     const command = new UpdateCommand({
       TableName: "Cats",
       Key: {
         id,
       },
-      UpdateExpression: "set #name = :name, breed = :breed, age = :age",
+      UpdateExpression:
+        "set #name = :name, breed = :breed, age = :age, description= :description",
       ExpressionAttributeValues: {
         ":name": name,
         ":breed": breed,
         ":age": age,
+        ":description": description,
       },
       ExpressionAttributeNames: {
         "#name": "name",

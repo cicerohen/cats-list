@@ -1,12 +1,44 @@
+import { useEffect, useMemo } from "react";
+import { Descendant, createEditor } from "slate";
+import { Slate, Editable, withReact } from "slate-react";
 import HeartIcon from "@heroicons/react/24/solid/HeartIcon";
-import HeartIconOutline from "@heroicons/react/24/outline/HeartIcon";
 
-import {Cat} from "@app/types";
+import { resetEditor } from "../services/editor-api";
 
+import { Cat } from "@app/types";
 
-type Props = Cat;
+type Props = Cat & {
+  onEdit?: (cat: Cat) => void;
+};
 
-export const CatCard = ({ name, age, breed, thumbnail }: Props) => {
+export const CatCard = ({
+  id,
+  name,
+  age,
+  breed,
+  description,
+  thumbnail,
+  onEdit,
+}: Props) => {
+  const editor = useMemo(() => withReact(createEditor()), []);
+
+  const onEditHandler = () => {
+    onEdit?.({
+      id,
+      name,
+      age,
+      breed,
+      description,
+      thumbnail,
+    });
+  };
+
+  useEffect(() => {
+    if (description) {
+      resetEditor(editor, JSON.parse(description) as Descendant[]);
+    }
+  }, [editor, description]);
+
   return (
     <div className="group overflow-hidden rounded-lg border border-gray-200 p-4 transition-all">
       <div
@@ -22,12 +54,28 @@ export const CatCard = ({ name, age, breed, thumbnail }: Props) => {
       </div>
 
       <h2 className="text-xl">{name}</h2>
-      <p className="text-lg text-gray-600">{breed}</p>
-      <p className="text-sm font-semibold text-gray-600">{age}</p>
-      <p className="mt-4 text-gray-600">
-        Bartô é um gato vagabundo que não dispensa uma ração premium e umas 20
-        horas de sono
-      </p>
+      <p className="text-lg text-gray-600">{breed.name}</p>
+      <p className="text-sm font-semibold text-gray-600">{age.name}</p>
+      {description && (
+        <Slate
+          editor={editor}
+          initialValue={[
+            {
+              type: "paragraph",
+              children: [
+                {
+                  text: "",
+                },
+              ],
+            },
+          ]}
+        >
+          <Editable readOnly className="mt-4 text-gray-600" />
+        </Slate>
+      )}
+      <button type="button" className="pt-4" onClick={onEditHandler}>
+        Editar
+      </button>
     </div>
   );
 };

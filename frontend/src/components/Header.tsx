@@ -11,7 +11,7 @@ export const Header = ({ onOpenEditPetModal }: Props) => {
     <header className="sticky top-0 z-10 bg-lime-600">
       <div className="flex h-20  items-center justify-between px-8 lg:container lg:mx-auto lg:px-0">
         <h1 className="font-semibold text-white">
-          <Link to="/">Pet Shelf</Link>
+          <Link to="/">Cat Shelf</Link>
         </h1>
         <div className="flex space-x-2">
           <button

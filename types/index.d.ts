@@ -1,25 +1,26 @@
+export type Breed = {
+  id: number;
+  name: string;
+};
+
+export type Age = {
+  id: number;
+  name: string;
+};
+
 export type Cat = {
-    id: string;
-    name: string;
-    age: string;
-    breed: string;
-    thumbnail: {
-      key: string;
-      url: string;
-    };
+  id: string;
+  name: string;
+  age: Age;
+  breed: Breed;
+  description: string;
+  thumbnail: {
+    key: string;
+    url: string;
   };
+};
 
-  export type Breed = {
-    id: number;
-    name: string;
-  };
-  
-  export type Age = {
-    id: number;
-    name: string;
-  };
-
-  export type HTTPMethod =
+export type HTTPMethod =
   | "GET"
   | "HEAD"
   | "OPTIONS"
@@ -29,5 +30,3 @@ export type Cat = {
   | "POST"
   | "PUT"
   | "DELETE";
-
-  

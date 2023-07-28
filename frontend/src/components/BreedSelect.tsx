@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Combobox, Transition } from "@headlessui/react";
 import ChevronUpDownIcon from "@heroicons/react/20/solid/ChevronUpDownIcon";
@@ -23,7 +23,11 @@ export const BreedSelect = ({
   onChange,
   onBlur,
 }: Props) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
+
+  const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
   const filteredBreeds =
     query === ""
@@ -36,7 +40,7 @@ export const BreedSelect = ({
         );
 
   return (
-    <Combobox name={name} onChange={onChange}>
+    <Combobox name={name} onChange={onChange} value={value}>
       <div className="relative">
         <div
           className={twMerge(
@@ -51,8 +55,9 @@ export const BreedSelect = ({
         >
           <Combobox.Input
             className="h-14 w-full rounded-lg border-none pl-4 pr-8"
-            displayValue={() => value?.name}
+            displayValue={(breed: Breed) => breed.name}
             onBlur={onBlur}
+            onChange={onChangeQuery}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
@@ -66,45 +71,38 @@ export const BreedSelect = ({
           leave="transition ease-in duration-100"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-          afterLeave={() => setQuery("")}
         >
           <Combobox.Options
             onBlur={onBlur}
             className="absolute mt-1 z-10 max-h-72 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
-            {filteredBreeds.length === 0 && query !== "" ? (
-              <div className="relative cursor-default select-none px-4 py-2 text-gray-700">
-                Nothing found.
-              </div>
-            ) : (
-              filteredBreeds.map((breed) => (
-                <Combobox.Option
-                  key={breed.id}
-                  className={({ active }) =>
-                    twMerge("relative py-4 pl-10 pr-4", active && "bg-gray-100")
-                  }
-                  value={breed}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={twMerge(
-                          "block truncate",
-                          selected && "font-medium"
-                        )}
-                      >
-                        {breed.name}
+            {filteredBreeds.map((breed) => (
+              <Combobox.Option
+                key={breed.id}
+                className={({ active }) =>
+                  twMerge("relative py-4 pl-10 pr-4", active && "bg-gray-100")
+                }
+                value={breed}
+              >
+                {({ selected }) => (
+                  <>
+                    <span
+                      className={twMerge(
+                        "block truncate",
+                        selected && "font-medium"
+                      )}
+                    >
+                      {breed.name}
+                    </span>
+                    {selected ? (
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-lime-600">
+                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
                       </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-lime-600">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Combobox.Option>
-              ))
-            )}
+                    ) : null}
+                  </>
+                )}
+              </Combobox.Option>
+            ))}
           </Combobox.Options>
         </Transition>
       </div>
