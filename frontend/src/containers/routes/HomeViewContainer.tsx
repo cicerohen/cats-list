@@ -5,10 +5,12 @@ import { CatsList } from "../../components/CatsList";
 import { PetEditPanel } from "../../components/PetEditPanel";
 import { usePetEditForm, Values } from "../../hooks/usePetEditForm";
 import { Return, useFetchApi } from "../../hooks/useFetchApi";
+import { useToasterContext } from "../../contexts/Toaster";
 
 import { Cat, Age, Breed } from "@app/types";
 
 export const HomeViewContainer = () => {
+  const { addToast } = useToasterContext();
   const [initialValues] = useState<Values>({
     id: "",
     name: "",
@@ -115,6 +117,16 @@ export const HomeViewContainer = () => {
   return (
     <>
       <View onOpenEditPetModal={onOpen}>
+        <button
+          onClick={() => {
+            addToast({ type: "info", text: "Notification text" });
+            addToast({ type: "warning", text: "Notification text" });
+            addToast({ type: "error", text: "Notification text" });
+            addToast({ type: "success", text: "Notification text" });
+          }}
+        >
+          Add toast
+        </button>
         <CatsList cats={cats} onEdit={onEditCat} />
       </View>
       <PetEditPanel
