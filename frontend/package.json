@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
+    "class-variance-authority": "^0.7.0",
     "formik": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -38,7 +39,7 @@
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "postcss": "^8.4.21",
-    "prettier-plugin-tailwindcss": "^0.2.4",
+    "prettier-plugin-tailwindcss": "^0.4.1",
     "tailwindcss": "^3.2.4",
     "ts-jest": "^29.0.5",
     "typescript": "^5.0.2",

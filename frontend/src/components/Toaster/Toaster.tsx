@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Toast } from "./Toast";
+import { useEffect, useState } from "react";
 
-import { useToasterContext } from "../../contexts/Toaster";
+import { Toast } from "./toast";
+
+import { useToasterContext } from "./toaster-context";
 
 export const Toaster = () => {
   const [container, setContainer] = useState<HTMLElement>();
@@ -22,12 +23,12 @@ export const Toaster = () => {
   return (
     container &&
     createPortal(
-      <div className="fixed top-0 right-0 z-10 space-y-2 py-4">
+      <div className="fixed right-0 top-0 z-10 space-y-2 py-4">
         {toasts.slice(0, 5).map((toast) => {
           return <Toast key={toast.id} {...toast} />;
         })}
       </div>,
-      container
+      container,
     )
   );
 };

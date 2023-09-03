@@ -113,10 +113,16 @@
         "LogGroupName": "/aws/lambda/react-aws-prod-listAges"
       }
     },
-    "UploadPhotosLogGroup": {
+    "UploadPhotoLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/react-aws-prod-uploadPhotos"
+        "LogGroupName": "/aws/lambda/react-aws-prod-uploadPhoto"
+      }
+    },
+    "DeletePhotoLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/react-aws-prod-deletePhoto"
       }
     },
     "IamRoleLambdaExecution": {
@@ -225,7 +231,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.createCat",
         "Runtime": "nodejs14.x",
@@ -256,7 +262,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.listCats",
         "Runtime": "nodejs14.x",
@@ -287,7 +293,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.showCat",
         "Runtime": "nodejs14.x",
@@ -318,7 +324,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.editCat",
         "Runtime": "nodejs14.x",
@@ -349,7 +355,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.deleteCat",
         "Runtime": "nodejs14.x",
@@ -380,7 +386,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.listBreeds",
         "Runtime": "nodejs14.x",
@@ -411,7 +417,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
         "Handler": "dist/handler.listAges",
         "Runtime": "nodejs14.x",
@@ -435,18 +441,18 @@
         "ListAgesLogGroup"
       ]
     },
-    "UploadPhotosLambdaFunction": {
+    "UploadPhotoLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/react-aws/prod/1690651812783-2023-07-29T17:30:12.783Z/react-aws.zip"
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
         },
-        "Handler": "dist/handler.uploadPhotos",
+        "Handler": "dist/handler.uploadPhoto",
         "Runtime": "nodejs14.x",
-        "FunctionName": "react-aws-prod-uploadPhotos",
+        "FunctionName": "react-aws-prod-uploadPhoto",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -463,87 +469,128 @@
         }
       },
       "DependsOn": [
-        "UploadPhotosLogGroup"
+        "UploadPhotoLogGroup"
       ]
     },
-    "CreateCatLambdaVersion757UX6GtNb3LntQHP5iHwcjlUhTpwWimmFab7keO14": {
+    "DeletePhotoLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/react-aws/prod/1691797914139-2023-08-11T23:51:54.139Z/react-aws.zip"
+        },
+        "Handler": "dist/handler.deletePhoto",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "react-aws-prod-deletePhoto",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "BUCKET_NAME": "react-aws-uploads",
+            "REGION": "us-east-1"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "DeletePhotoLogGroup"
+      ]
+    },
+    "CreateCatLambdaVersionFUdFrxEuhbpVLJ0cgxVPNzHmIRwabtXy7lLdPFhdGc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CreateCatLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "ListCatsLambdaVersionjseRrLTV9te44XFS1T3GOJbhfPbNtzpi5WVsdyxZUx0": {
+    "ListCatsLambdaVersionx3X8SVqOsqu1QzHqgid4vz8XrUkK0HHsexDpvzk0E4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListCatsLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "ShowCatLambdaVersionSd5glu9Mi2IY7I3gHLhsnMmJy7afLBZOaj65n7kYOE": {
+    "ShowCatLambdaVersionZOVpjonpjVAwHxlyNMEro4qRYbsaBDAT7380m2MQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ShowCatLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "EditCatLambdaVersionFZorr9RgT1L2bqrNkRR6jP4nsI3aJuXIJmn33fsk": {
+    "EditCatLambdaVersionGIp0FbqXoxWinRz0o0nev7CgFlzd8mpsDuRJojVDoIU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "EditCatLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "DeleteCatLambdaVersion9abN2KThMOSRIl0IpmdqkQmjoaLbR8idfGBe8DM1nE": {
+    "DeleteCatLambdaVersion0czmp4plFv1kaFwOgieLEVE62UGBq94O20bzV1ZNA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "DeleteCatLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "ListBreedsLambdaVersionuGi6rtj84oAkuW2IVHXUAmGi2E2RHNFt0d1C6Biy0c": {
+    "ListBreedsLambdaVersionRRKNXnOQHqVV70zKcR8Q2bWwE7t3HZt87HxXYC58": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListBreedsLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "ListAgesLambdaVersion7mvvBx4ixAax1DIyRKA4bahoTPHybFWlrow2TkFQ": {
+    "ListAgesLambdaVersion6bISRL22XaHmazmCHlHMPA9GAz2nC9XeK9kq4X803VE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "ListAgesLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
-    "UploadPhotosLambdaVersioncY7hRxHpkeeIGN7vM7bwV5ddBhVFL6BMHippQk": {
+    "UploadPhotoLambdaVersionEOJ6FxgdznMbglX3Z1wTcDi6kZx7kb7CABpXCfu1Vs": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "UploadPhotosLambdaFunction"
+          "Ref": "UploadPhotoLambdaFunction"
         },
-        "CodeSha256": "8LqM10ZgtmlL7ZaYX0xmWQt5zi3tMieowegzeqc70R4="
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
+      }
+    },
+    "DeletePhotoLambdaVersion9uFJKf06Mvan30HPQvlF1Dl1e9BLvHa4VJsEqTqc": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "DeletePhotoLambdaFunction"
+        },
+        "CodeSha256": "3CfEnSwjw4SKtcZFyDgoF7tPtPxJUybnHAMkyc8GH8A="
       }
     },
     "HttpApi": {
@@ -1112,12 +1159,12 @@
       },
       "DependsOn": "HttpApiIntegrationListAges"
     },
-    "UploadPhotosLambdaPermissionHttpApi": {
+    "UploadPhotoLambdaPermissionHttpApi": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "UploadPhotosLambdaFunction",
+            "UploadPhotoLambdaFunction",
             "Arn"
           ]
         },
@@ -1149,7 +1196,7 @@
         }
       }
     },
-    "HttpApiIntegrationUploadPhotos": {
+    "HttpApiIntegrationUploadPhoto": {
       "Type": "AWS::ApiGatewayV2::Integration",
       "Properties": {
         "ApiId": {
@@ -1158,7 +1205,7 @@
         "IntegrationType": "AWS_PROXY",
         "IntegrationUri": {
           "Fn::GetAtt": [
-            "UploadPhotosLambdaFunction",
+            "UploadPhotoLambdaFunction",
             "Arn"
           ]
         },
@@ -1179,13 +1226,88 @@
             [
               "integrations",
               {
-                "Ref": "HttpApiIntegrationUploadPhotos"
+                "Ref": "HttpApiIntegrationUploadPhoto"
               }
             ]
           ]
         }
       },
-      "DependsOn": "HttpApiIntegrationUploadPhotos"
+      "DependsOn": "HttpApiIntegrationUploadPhoto"
+    },
+    "DeletePhotoLambdaPermissionHttpApi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "DeletePhotoLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "HttpApi"
+              },
+              "/*"
+            ]
+          ]
+        }
+      }
+    },
+    "HttpApiIntegrationDeletePhoto": {
+      "Type": "AWS::ApiGatewayV2::Integration",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": {
+          "Fn::GetAtt": [
+            "DeletePhotoLambdaFunction",
+            "Arn"
+          ]
+        },
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    },
+    "HttpApiRouteDeletePhotosKeyVar": {
+      "Type": "AWS::ApiGatewayV2::Route",
+      "Properties": {
+        "ApiId": {
+          "Ref": "HttpApi"
+        },
+        "RouteKey": "DELETE /photos/{key}",
+        "Target": {
+          "Fn::Join": [
+            "/",
+            [
+              "integrations",
+              {
+                "Ref": "HttpApiIntegrationDeletePhoto"
+              }
+            ]
+          ]
+        }
+      },
+      "DependsOn": "HttpApiIntegrationDeletePhoto"
     },
     "CatsTable": {
       "Type": "AWS::DynamoDB::Table",
@@ -1270,7 +1392,7 @@
     "CreateCatLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateCatLambdaVersion757UX6GtNb3LntQHP5iHwcjlUhTpwWimmFab7keO14"
+        "Ref": "CreateCatLambdaVersionFUdFrxEuhbpVLJ0cgxVPNzHmIRwabtXy7lLdPFhdGc"
       },
       "Export": {
         "Name": "sls-react-aws-prod-CreateCatLambdaFunctionQualifiedArn"
@@ -1279,7 +1401,7 @@
     "ListCatsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListCatsLambdaVersionjseRrLTV9te44XFS1T3GOJbhfPbNtzpi5WVsdyxZUx0"
+        "Ref": "ListCatsLambdaVersionx3X8SVqOsqu1QzHqgid4vz8XrUkK0HHsexDpvzk0E4"
       },
       "Export": {
         "Name": "sls-react-aws-prod-ListCatsLambdaFunctionQualifiedArn"
@@ -1288,7 +1410,7 @@
     "ShowCatLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ShowCatLambdaVersionSd5glu9Mi2IY7I3gHLhsnMmJy7afLBZOaj65n7kYOE"
+        "Ref": "ShowCatLambdaVersionZOVpjonpjVAwHxlyNMEro4qRYbsaBDAT7380m2MQ"
       },
       "Export": {
         "Name": "sls-react-aws-prod-ShowCatLambdaFunctionQualifiedArn"
@@ -1297,7 +1419,7 @@
     "EditCatLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "EditCatLambdaVersionFZorr9RgT1L2bqrNkRR6jP4nsI3aJuXIJmn33fsk"
+        "Ref": "EditCatLambdaVersionGIp0FbqXoxWinRz0o0nev7CgFlzd8mpsDuRJojVDoIU"
       },
       "Export": {
         "Name": "sls-react-aws-prod-EditCatLambdaFunctionQualifiedArn"
@@ -1306,7 +1428,7 @@
     "DeleteCatLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DeleteCatLambdaVersion9abN2KThMOSRIl0IpmdqkQmjoaLbR8idfGBe8DM1nE"
+        "Ref": "DeleteCatLambdaVersion0czmp4plFv1kaFwOgieLEVE62UGBq94O20bzV1ZNA"
       },
       "Export": {
         "Name": "sls-react-aws-prod-DeleteCatLambdaFunctionQualifiedArn"
@@ -1315,7 +1437,7 @@
     "ListBreedsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListBreedsLambdaVersionuGi6rtj84oAkuW2IVHXUAmGi2E2RHNFt0d1C6Biy0c"
+        "Ref": "ListBreedsLambdaVersionRRKNXnOQHqVV70zKcR8Q2bWwE7t3HZt87HxXYC58"
       },
       "Export": {
         "Name": "sls-react-aws-prod-ListBreedsLambdaFunctionQualifiedArn"
@@ -1324,19 +1446,28 @@
     "ListAgesLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "ListAgesLambdaVersion7mvvBx4ixAax1DIyRKA4bahoTPHybFWlrow2TkFQ"
+        "Ref": "ListAgesLambdaVersion6bISRL22XaHmazmCHlHMPA9GAz2nC9XeK9kq4X803VE"
       },
       "Export": {
         "Name": "sls-react-aws-prod-ListAgesLambdaFunctionQualifiedArn"
       }
     },
-    "UploadPhotosLambdaFunctionQualifiedArn": {
+    "UploadPhotoLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UploadPhotosLambdaVersioncY7hRxHpkeeIGN7vM7bwV5ddBhVFL6BMHippQk"
+        "Ref": "UploadPhotoLambdaVersionEOJ6FxgdznMbglX3Z1wTcDi6kZx7kb7CABpXCfu1Vs"
       },
       "Export": {
-        "Name": "sls-react-aws-prod-UploadPhotosLambdaFunctionQualifiedArn"
+        "Name": "sls-react-aws-prod-UploadPhotoLambdaFunctionQualifiedArn"
+      }
+    },
+    "DeletePhotoLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "DeletePhotoLambdaVersion9uFJKf06Mvan30HPQvlF1Dl1e9BLvHa4VJsEqTqc"
+      },
+      "Export": {
+        "Name": "sls-react-aws-prod-DeletePhotoLambdaFunctionQualifiedArn"
       }
     },
     "HttpApiId": {

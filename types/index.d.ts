@@ -14,7 +14,7 @@ export type Cat = {
   age: Age;
   breed: Breed;
   description: string;
-  thumbnail: {
+  photo: {
     key: string;
     url: string;
   };

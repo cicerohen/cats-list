@@ -106,12 +106,18 @@ functions:
       - httpApi:
           path: /ages
           method: "GET"
-  uploadPhotos:
-    handler: handler.uploadPhotos
+  uploadPhoto:
+    handler: handler.uploadPhoto
     events:
       - httpApi:
           path: /photos
           method: "POST"
+  deletePhoto:
+    handler: handler.deletePhoto
+    events:
+      - httpApi:
+          path: /photos/{key}
+          method: "DELETE"
 
 resources:
   Resources:

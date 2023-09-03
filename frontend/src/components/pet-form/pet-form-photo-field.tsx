@@ -1,0 +1,71 @@
+import { useRef } from "react";
+import { Cat } from "@app/types";
+
+import PhotoIcon from "@heroicons/react/24/outline/PhotoIcon";
+import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import ArrowPathIcon from "@heroicons/react/24/outline/ArrowPathIcon";
+
+type Props = {
+  value: Cat["photo"];
+  loading: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onRemove: () => void;
+};
+
+export const PhotoField = ({ value, loading, onChange, onRemove }: Props) => {
+  const inputFileRef = useRef<HTMLInputElement>(null);
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    if (inputFileRef.current) {
+      inputFileRef.current.value = "";
+    }
+  };
+
+  return (
+    <div className="w-52">
+      <div className="relative h-52 w-52 overflow-hidden rounded-full border border-gray-300">
+        {value.url && (
+          <div
+            style={{
+              "--bg-url": `url(${value.url})`,
+            }}
+            className="h-52 w-52 rounded-full bg-[image:var(--bg-url)] bg-cover bg-center bg-no-repeat"
+          ></div>
+        )}
+        {!value.url && (
+          <div className="lef-0 absolute top-0 flex h-52 w-52 items-center justify-center rounded-full">
+            <PhotoIcon className="h-8 w-8 text-gray-300" />
+          </div>
+        )}
+
+        {loading && (
+          <div className="absolute left-0 top-0 z-10 flex h-52 w-52 items-center justify-center rounded-full bg-black/80">
+            <ArrowPathIcon className="h-5 w-5 animate-spin text-white" />
+          </div>
+        )}
+
+        <input
+          ref={inputFileRef}
+          type="file"
+          //   disabled={isLoadingPhoto}
+          title="Change photo"
+          onChange={onChangeHandler}
+          accept=".jpg, .jpeg, .png"
+          className="absolute left-0 top-0 h-full w-full cursor-pointer rounded-full opacity-0"
+        />
+      </div>
+      <div className="mt-2 flex items-center justify-center">
+        <button
+          type="button"
+          title="Remove current photo"
+          className="flex items-center rounded-md border border-gray-300 px-3 py-1 text-xs text-gray-600"
+          onClick={onRemove}
+        >
+          <TrashIcon className="mr-1 h-4 w-4" />
+          <span>Remove photo</span>
+        </button>
+      </div>
+    </div>
+  );
+};
