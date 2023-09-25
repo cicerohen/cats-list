@@ -8,7 +8,7 @@ export const NameField = ({ label, errorMessage, invalid, ...rest }: Props) => {
   return (
     <Field label={label} errorMessage={errorMessage} invalid={invalid}>
       <input
-        className="block h-14 w-full rounded-md border border-gray-300 px-4 disabled:bg-gray-100 disabled:opacity-70"
+        className="block h-12 w-full rounded-md border border-gray-300 px-4 disabled:bg-gray-100 disabled:opacity-70"
         {...rest}
       />
     </Field>

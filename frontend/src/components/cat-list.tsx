@@ -1,5 +1,5 @@
 import ArrowPathIcon from "@heroicons/react/24/outline/ArrowPathIcon";
-
+import { CatCard } from "./cat-card";
 import { Cat } from "@app/types";
 
 type Props = {
@@ -22,13 +22,42 @@ export const CatList = ({ cats, showLoading, renderCat }: Props) => {
           No cats to show
         </p>
       )}
-      {cats.length > 0 && (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {cats.map((cat) => {
-            return renderCat(cat);
-          })}
-        </div>
-      )}
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <CatCard
+          name=""
+          id="2"
+          breed={{ name: "", id: 2 }}
+          age={{ name: "", id: 2 }}
+          description=""
+          photo={{
+            url: "",
+            key: "",
+          }}
+        />
+        <CatCard
+          name=""
+          id="2"
+          breed={{ name: "", id: 2 }}
+          age={{ name: "", id: 2 }}
+          description=""
+          photo={{
+            url: "",
+            key: "",
+          }}
+        />
+        <CatCard
+          name=""
+          id="2"
+          breed={{ name: "", id: 2 }}
+          age={{ name: "", id: 2 }}
+          description=""
+          photo={{
+            url: "",
+            key: "",
+          }}
+        />
+      </div>
     </div>
   );
 };

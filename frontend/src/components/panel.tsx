@@ -18,7 +18,7 @@ export const Panel = ({ title, isOpen, children, onClose }: Props) => {
   return createPortal(
     <section
       className={twMerge(
-        "fixed bottom-0 top-0 z-10 h-full w-full bg-white transition-all duration-200",
+        "fixed bottom-0 top-0 z-10  bg-white transition-all duration-200",
         (isOpen && "translate-x-0") || "translate-x-full",
       )}
     >

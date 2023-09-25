@@ -1,21 +1,14 @@
 import { useEffect, useMemo } from "react";
 import { Descendant, createEditor } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
+import { Link } from "react-router-dom";
 
 import { CatCardPhoto } from "./cat-card-photo";
-import { EditButton } from "./cat-card-edit-button";
-import { RemoveButton } from "./cat-card-remove-button";
-
 import { resetEditor } from "../../services/slate-editor-api";
 
 import { Cat } from "@app/types";
 
-export type Props = Cat & {
-  removing: boolean;
-  onEdit: (cat: Cat) => void;
-  onRemove: (cat: Cat) => void;
-};
-
+export type Props = Cat;
 export const CatCard = ({
   id,
   name,
@@ -23,33 +16,8 @@ export const CatCard = ({
   breed,
   description,
   photo,
-  removing,
-  onEdit,
-  onRemove,
 }: Props) => {
   const editor = useMemo(() => withReact(createEditor()), []);
-
-  const onEditHandler = () => {
-    onEdit({
-      id,
-      name,
-      age,
-      breed,
-      description,
-      photo,
-    });
-  };
-
-  const onRemoveHandler = () => {
-    onRemove({
-      id,
-      name,
-      age,
-      breed,
-      description,
-      photo,
-    });
-  };
 
   useEffect(() => {
     if (description) {
@@ -81,10 +49,7 @@ export const CatCard = ({
         </Slate>
       )}
 
-      <div className="mt-4 flex items-center space-x-2">
-        <EditButton onClick={onEditHandler} disabled={removing} />
-        <RemoveButton onClick={onRemoveHandler} loading={removing} />
-      </div>
+      <Link to="/cats/2/edit">Edit</Link>
     </div>
   );
 };

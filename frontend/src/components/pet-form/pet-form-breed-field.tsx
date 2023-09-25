@@ -56,7 +56,7 @@ export const BreedField = ({
         <div className="relative">
           <div className="relative overflow-hidden rounded-lg border border-gray-300">
             <Combobox.Input
-              className="h-14 w-full rounded-lg border-none pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70"
+              className="h-12 w-full rounded-lg border-none pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70"
               displayValue={(breed: Breed) => breed.name}
               onBlur={onBlur}
               onChange={onChangeQuery}

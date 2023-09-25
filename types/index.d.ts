@@ -30,3 +30,24 @@ export type HTTPMethod =
   | "POST"
   | "PUT"
   | "DELETE";
+
+export type UserAttributes = {
+  email: string;
+};
+
+export type AuthenticationResult = {
+  AccessToken?: string;
+  ExpiresIn?: number;
+  TokenType?: string;
+  RefreshToken?: string;
+  IdToken?: string;
+  NewDeviceMetadata: {
+    DeviceKey?: string;
+    DeviceGroupKey?: string;
+  };
+};
+
+export type Authentication = Partial<{
+  AuthenticationResult: AuthenticationResult;
+  UserAttributes: UserAttributes;
+}>;

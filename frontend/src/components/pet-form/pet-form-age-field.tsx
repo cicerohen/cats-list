@@ -1,13 +1,13 @@
 import { Fragment } from "react";
 import { twMerge } from "tailwind-merge";
 import { Listbox, Transition } from "@headlessui/react";
-import { Field, Props as FieldProps } from "./pet-form-field";
 import ChevronUpDownIcon from "@heroicons/react/20/solid/ChevronUpDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
+import { FormField, Props as FormFieldProps } from "../form-field";
 import { Age } from "@app/types";
 
-type Props = Omit<FieldProps, "children"> & {
+type Props = Omit<FormFieldProps, "children"> & {
   ages: Age[];
   value: Age;
   invalid: boolean;
@@ -27,10 +27,10 @@ export const AgeField = ({
   onBlur,
 }: Props) => {
   return (
-    <Field label={label} invalid={invalid} errorMessage={errorMessage}>
+    <FormField label={label} invalid={invalid} errorMessage={errorMessage}>
       <Listbox value={value} onChange={onChange} disabled={disabled}>
         <div className="relative">
-          <Listbox.Button className="relative h-14 w-full cursor-default rounded-md border border-gray-300 pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70">
+          <Listbox.Button className="relative h-12 w-full cursor-default rounded-md border border-gray-300 pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70">
             <span className="block truncate text-left">{value.name}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -80,6 +80,6 @@ export const AgeField = ({
           </Transition>
         </div>
       </Listbox>
-    </Field>
+    </FormField>
   );
 };

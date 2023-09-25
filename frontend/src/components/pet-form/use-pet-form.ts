@@ -18,10 +18,28 @@ const Schema = Yup.object({
 
 export const usePetForm = ({
   onSubmit,
-  initialValues,
-}: Pick<FormikConfig<Cat>, "onSubmit" | "initialValues">) => {
+}: Pick<FormikConfig<Cat>, "onSubmit">) => {
   return useFormik<Cat>({
-    initialValues,
+    initialValues: {
+      id: "",
+      name: "",
+      breed: { id: 0, name: "" },
+      age: { id: 0, name: "" },
+      description: JSON.stringify([
+        {
+          type: "paragraph",
+          children: [
+            {
+              text: "",
+            },
+          ],
+        },
+      ]),
+      photo: {
+        key: "",
+        url: "",
+      },
+    },
     onSubmit,
     validationSchema: Schema,
     validateOnBlur: true,

@@ -13,11 +13,22 @@ import {
   DynamoDBDocumentClient,
   ScanCommand,
   PutCommand,
-  GetCommand,
+  QueryCommand,
   UpdateCommand,
   DeleteCommand,
 } from "@aws-sdk/lib-dynamodb";
 
+import {
+  AdminCreateUserCommand,
+  AdminSetUserPasswordCommand,
+  AdminInitiateAuthCommand,
+  AdminGetUserCommand,
+  AttributeType,
+  RevokeTokenCommand,
+  CognitoIdentityProviderClient,
+} from "@aws-sdk/client-cognito-identity-provider";
+
+const cognitoClient = new CognitoIdentityProviderClient();
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client, {
   marshallOptions: {
@@ -26,6 +37,15 @@ const docClient = DynamoDBDocumentClient.from(client, {
 });
 
 const s3Client = new S3Client({});
+
+const normalizeUserAttributes = (userAttributes: AttributeType[] = []) =>
+  userAttributes.reduce((acc, curr) => {
+    const notAllowedProperties = ["sub", "email_verified"];
+    if (!notAllowedProperties.includes(curr.Name)) {
+      acc[curr.Name] = curr.Value;
+    }
+    return acc;
+  }, {});
 
 const error = (
   message: string = "Something wrong happened",
@@ -59,37 +79,42 @@ export const createCat = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
+    const { authorizer } = event.requestContext;
     const { name, breed, age, description, photo } = JSON.parse(
       event.body || "{}"
     );
 
     const id = nanoid();
 
-    const putCommand = new PutCommand({
-      TableName: "Cats",
-      Item: {
-        id,
-        name,
-        breed,
-        age,
-        description,
-        photo,
-      },
-    });
+    await docClient.send(
+      new PutCommand({
+        TableName: "react-aws-cats",
+        Item: {
+          id,
+          owner_email: authorizer.jwt.claims.username,
+          name,
+          breed,
+          age,
+          description,
+          photo,
+        },
+      })
+    );
 
-    await docClient.send(putCommand);
+    const response = await docClient.send(
+      new QueryCommand({
+        TableName: "react-aws-cats",
+        KeyConditionExpression: "id = :id AND owner_email = :owner_email",
+        ExpressionAttributeValues: {
+          ":id": id,
+          ":owner_email": authorizer.jwt.claims.username,
+        },
+      })
+    );
 
-    const getCommand = new GetCommand({
-      TableName: "Cats",
-      Key: {
-        id: id,
-      },
-    });
-
-    const response = await docClient.send(getCommand);
-
-    return success(response.Item);
+    return success(response.Items[0]);
   } catch (err) {
+    console.error(err);
     return error("Error when trying to add a cat");
   }
 };
@@ -98,12 +123,13 @@ export const listCats = async (): Promise<APIGatewayProxyResult> => {
   try {
     const response = await docClient.send(
       new ScanCommand({
-        TableName: "Cats",
+        TableName: "react-aws-cats",
       })
     );
 
     return success(response.Items);
   } catch (err) {
+    console.error(err);
     return error("Error retrieving the list of cats");
   }
 };
@@ -114,17 +140,19 @@ export const showCat = async (
   try {
     const { id } = event.pathParameters;
 
-    const command = new GetCommand({
-      TableName: "Cats",
-      Key: {
-        id: id,
-      },
-    });
+    const response = await docClient.send(
+      new QueryCommand({
+        TableName: "react-aws-cats",
+        KeyConditionExpression: "id = :id",
+        ExpressionAttributeValues: {
+          ":id": id,
+        },
+      })
+    );
 
-    const response = await docClient.send(command);
-
-    return success(response.Item);
+    return success(response.Items[0]);
   } catch (err) {
+    console.error(err);
     return error("Error when trying to retrieve the cat");
   }
 };
@@ -133,14 +161,16 @@ export const editCat = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
+    const { authorizer } = event.requestContext;
     const { id } = event.pathParameters;
     const { name, breed, age, description } = JSON.parse(event.body ?? "{}");
 
     const response = await docClient.send(
       new UpdateCommand({
-        TableName: "Cats",
+        TableName: "react-aws-cats",
         Key: {
           id,
+          owner_email: authorizer.jwt.claims.username,
         },
         UpdateExpression:
           "set #name = :name, breed = :breed, age = :age, description= :description",
@@ -161,6 +191,7 @@ export const editCat = async (
 
     return success(response.Attributes);
   } catch (err) {
+    console.error(err);
     return error("Error when trying to update the cat");
   }
 };
@@ -170,18 +201,21 @@ export const deleteCat = async (
 ): Promise<APIGatewayProxyResult> => {
   try {
     const { id } = event.pathParameters;
+    const { authorizer } = event.requestContext;
 
-    const command = new DeleteCommand({
-      TableName: "Cats",
-      Key: {
-        id: id,
-      },
-      ReturnValues: "ALL_OLD",
-    });
-
-    const response = await docClient.send(command);
+    const response = await docClient.send(
+      new DeleteCommand({
+        TableName: "react-aws-cats",
+        Key: {
+          id: id,
+          owner_email: authorizer.jwt.claims.username,
+        },
+        ReturnValues: "ALL_OLD",
+      })
+    );
     return success(response.Attributes);
   } catch (err) {
+    console.error(err);
     return error("Error when trying to delete the cat");
   }
 };
@@ -190,6 +224,7 @@ export const uploadPhoto = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
+    const { authorizer } = event.requestContext;
     const body = await parse(event);
     const file = body.files[0];
     const catId = body.catId;
@@ -226,9 +261,10 @@ export const uploadPhoto = async (
       try {
         await docClient.send(
           new UpdateCommand({
-            TableName: "Cats",
+            TableName: "react-aws-cats",
             Key: {
               id: catId,
+              owner_email: authorizer.jwt.claims.username,
             },
             UpdateExpression: "set photo = :photo",
             ConditionExpression: "id = :id",
@@ -244,6 +280,7 @@ export const uploadPhoto = async (
 
     return success(photo);
   } catch (err) {
+    console.error(err);
     return error("Error when trying to change photo");
   }
 };
@@ -252,6 +289,7 @@ export const deletePhoto = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
+    const { authorizer } = event.requestContext;
     const { key } = event.pathParameters;
     const { catId } = event.queryStringParameters || {};
 
@@ -266,9 +304,10 @@ export const deletePhoto = async (
       try {
         await docClient.send(
           new UpdateCommand({
-            TableName: "Cats",
+            TableName: "react-aws-cats",
             Key: {
               id: catId,
+              owner_email: authorizer.jwt.claims.username,
             },
             UpdateExpression: "set photo = :photo",
             ConditionExpression: "id = :id",
@@ -286,7 +325,155 @@ export const deletePhoto = async (
     }
     return success();
   } catch (err) {
+    console.error(err);
     return error("Error when trying to delete photo");
+  }
+};
+
+export const signin = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { email, password } = JSON.parse(event.body || "{}");
+
+    if (!email || !password) {
+      return error("Invalid input", 400);
+    }
+
+    const response = await cognitoClient.send(
+      new AdminInitiateAuthCommand({
+        AuthFlow: "ADMIN_NO_SRP_AUTH",
+        UserPoolId: process.env.USER_POOL,
+        ClientId: process.env.USER_CLIENT,
+        AuthParameters: {
+          USERNAME: email,
+          PASSWORD: password,
+        },
+      })
+    );
+
+    const userResponse = await cognitoClient.send(
+      new AdminGetUserCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: email,
+      })
+    );
+    return success({
+      AuthenticationResult: response.AuthenticationResult,
+      UserAttributes: normalizeUserAttributes(userResponse.UserAttributes),
+    });
+  } catch (err) {
+    console.error(err);
+    return error("Error when trying to signin");
+  }
+};
+
+export const signup = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { email, password } = JSON.parse(event.body || "{}");
+
+    if (!email || !password) {
+      return error("Invalid input", 400);
+    }
+
+    await cognitoClient.send(
+      new AdminCreateUserCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: email,
+        MessageAction: "SUPPRESS",
+        UserAttributes: [
+          {
+            Name: "email",
+            Value: email,
+          },
+          {
+            Name: "email_verified",
+            Value: "true",
+          },
+        ],
+      })
+    );
+
+    await cognitoClient.send(
+      new AdminSetUserPasswordCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: email,
+        Permanent: true,
+        Password: password,
+      })
+    );
+
+    const response = await cognitoClient.send(
+      new AdminInitiateAuthCommand({
+        AuthFlow: "ADMIN_NO_SRP_AUTH",
+        UserPoolId: process.env.USER_POOL,
+        ClientId: process.env.USER_CLIENT,
+        AuthParameters: {
+          USERNAME: email,
+          PASSWORD: password,
+        },
+      })
+    );
+
+    const userResponse = await cognitoClient.send(
+      new AdminGetUserCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: email,
+      })
+    );
+    return success({
+      AuthenticationResult: response.AuthenticationResult,
+      UserAttributes: normalizeUserAttributes(userResponse.UserAttributes),
+    });
+  } catch (err) {
+    console.error(err);
+    return error("Error when trying to signup");
+  }
+};
+
+export const signout = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { authorizer } = event.requestContext;
+    console.log(event.headers);
+
+    const token = (event.headers.authorization || "").split(" ")[1];
+    console.log("token", token);
+
+    const response = await cognitoClient.send(
+      new RevokeTokenCommand({
+        ClientId: process.env.USER_CLIENT,
+        Token: token,
+      })
+    );
+  } catch (err) {
+    console.log("ssss", err);
+    return error("Error when trying to signout");
+  }
+};
+
+export const me = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { authorizer } = event.requestContext;
+
+    const response = await cognitoClient.send(
+      new AdminGetUserCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: authorizer.jwt.claims.username,
+      })
+    );
+
+    return success({
+      UserAttributes: normalizeUserAttributes(response.UserAttributes),
+    });
+  } catch (err) {
+    console.error(err);
+    return error("Error when trying to retrieve info");
   }
 };
 

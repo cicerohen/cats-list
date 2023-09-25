@@ -8,6 +8,18 @@ plugins:
   - serverless-functions-base-path
 
 custom:
+  cognito:
+    issuerUrl:
+      Fn::Sub:
+        - "https://cognito-idp.${region}.amazonaws.com/${userPool}"
+        - region: ${self:provider.region}
+          userPool:
+            Ref: UserPool
+    userClient:
+      Ref: UserClient
+    userPool:
+      Ref: UserPool
+
   functionsBasePath: dist
   serverless-s3-cleaner:
     buckets:
@@ -26,13 +38,22 @@ custom:
 provider:
   name: aws
   stage: prod
-  region: ${env:REGION,"us-east-1"}
+  region: us-east-1
   runtime: nodejs14.x
   httpApi:
     name: react-aws
     cors: true
+    authorizers:
+      cognitoAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: ${self:custom.cognito.issuerUrl}
+        audience:
+          - ${self:custom.cognito.userClient}
   environment:
     BUCKET_NAME: react-aws-uploads
+    USER_POOL: ${self:custom.cognito.userPool}
+    USER_CLIENT: ${self:custom.cognito.userClient}
   iam:
     role:
       name: react-aws-role
@@ -55,6 +76,7 @@ provider:
             - dynamodb:PutItem
             - dynamodb:DeleteItem
             - dynamodb:UpdateItem
+            - dynamodb:Query
           Resource:
             - arn:aws:dynamodb:*:*:table/*
         - Effect: "Allow"
@@ -62,6 +84,14 @@ provider:
             - execute-api:Invoke
           Resource:
             - "arn:aws:execute-api:*:*:*"
+        - Effect: "Allow"
+          Action:
+            - cognito-idp:AdminInitiateAuth
+            - cognito-idp:AdminCreateUser
+            - cognito-idp:AdminSetUserPassword
+            - cognito-idp:AdminGetUser
+          Resource:
+            - "arn:aws:cognito-idp:*:*:userpool/*"
 
 functions:
   createCat:
@@ -70,6 +100,8 @@ functions:
       - httpApi:
           path: /cats
           method: "POST"
+          authorizer:
+            name: cognitoAuthorizer
   listCats:
     handler: handler.listCats
     events:
@@ -88,12 +120,16 @@ functions:
       - httpApi:
           path: /cats/{id}
           method: "PATCH"
+          authorizer:
+            name: cognitoAuthorizer
   deleteCat:
     handler: handler.deleteCat
     events:
       - httpApi:
           path: /cats/{id}
           method: "DELETE"
+          authorizer:
+            name: cognitoAuthorizer
   listBreeds:
     handler: handler.listBreeds
     events:
@@ -112,25 +148,54 @@ functions:
       - httpApi:
           path: /photos
           method: "POST"
+          authorizer:
+            name: cognitoAuthorizer
   deletePhoto:
     handler: handler.deletePhoto
     events:
       - httpApi:
           path: /photos/{key}
           method: "DELETE"
+          authorizer:
+            name: cognitoAuthorizer
+  signin:
+    handler: handler.signin
+    events:
+      - httpApi:
+          path: /auth/signin
+          method: "POST"
+  signup:
+    handler: handler.signup
+    events:
+      - httpApi:
+          path: /auth/signup
+          method: "POST"
+
+  me:
+    handler: handler.me
+    events:
+      - httpApi:
+          path: /me
+          method: "GET"
+          authorizer:
+            name: cognitoAuthorizer
 
 resources:
   Resources:
     CatsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: Cats
+        TableName: react-aws-cats
         AttributeDefinitions:
           - AttributeName: id
+            AttributeType: S
+          - AttributeName: owner_email
             AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+          - AttributeName: owner_email
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
@@ -164,3 +229,27 @@ resources:
               Principal: "*"
               Action: s3:GetObject
               Resource: "arn:aws:s3:::react-aws-uploads/*"
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: react-aws-user-pool
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+        AutoVerifiedAttributes:
+          - email
+    UserClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: react-aws-user-client
+        GenerateSecret: false
+        UserPoolId:
+          Ref: UserPool
+        AccessTokenValidity: 5
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH

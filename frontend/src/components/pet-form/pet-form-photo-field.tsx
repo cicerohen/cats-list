@@ -23,24 +23,24 @@ export const PhotoField = ({ value, loading, onChange, onRemove }: Props) => {
   };
 
   return (
-    <div className="w-52">
-      <div className="relative h-52 w-52 overflow-hidden rounded-full border border-gray-300">
+    <div className="w-40">
+      <div className="relative h-40 w-40 overflow-hidden rounded-full border border-gray-300">
         {value.url && (
           <div
             style={{
               "--bg-url": `url(${value.url})`,
             }}
-            className="h-52 w-52 rounded-full bg-[image:var(--bg-url)] bg-cover bg-center bg-no-repeat"
+            className="h-40 w-40 rounded-full bg-[image:var(--bg-url)] bg-cover bg-center bg-no-repeat"
           ></div>
         )}
         {!value.url && (
-          <div className="lef-0 absolute top-0 flex h-52 w-52 items-center justify-center rounded-full">
+          <div className="lef-0 absolute top-0 flex h-40 w-40 items-center justify-center rounded-full">
             <PhotoIcon className="h-8 w-8 text-gray-300" />
           </div>
         )}
 
         {loading && (
-          <div className="absolute left-0 top-0 z-10 flex h-52 w-52 items-center justify-center rounded-full bg-black/80">
+          <div className="absolute left-0 top-0 z-10 flex h-40 w-40 items-center justify-center rounded-full bg-black/80">
             <ArrowPathIcon className="h-5 w-5 animate-spin text-white" />
           </div>
         )}

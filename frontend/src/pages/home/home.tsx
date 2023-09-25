@@ -1,26 +1,23 @@
-import { useEffect, useState, useMemo } from "react";
-import { View } from "../../components/view";
+import { useState, useMemo, useEffect } from "react";
 
+import { View } from "../../components/view";
 import { CatList } from "../../components/cat-list";
-import { Panel } from "../../components/panel";
 import { Header } from "../../components/header";
 
 import { useToasterContext } from "../../components/toaster/toaster-context";
 import { usePetForm } from "../../components/pet-form/use-pet-form";
 
-import { fetchApi } from "../../services/fetch-api";
-
 import { Cat } from "@app/types";
 
 import { CatCardContainer } from "./containers/cat-card-container";
-import { PetFormContainer } from "./containers/pet-form-container";
-
-import { PetFormProvider } from "./contexts/pet-form-context";
+import { useAuthenticationContext } from "../../contexts/authentication-provider";
+import { useFetchApi } from "../../hooks/use-fetch-api";
 
 export const HomePage = () => {
+  const fetchApi = useFetchApi();
   const { addToast } = useToasterContext();
-  const [panelTitle, setPanelTitle] = useState("");
-  const [panelIsOpen, setPanelIsOpen] = useState(false);
+  const { authentication } = useAuthenticationContext();
+
   const [isLoadingCats, setIsLoadingCats] = useState<boolean>(false);
   const initialValues = useMemo<Cat>(
     () => ({
@@ -58,7 +55,6 @@ export const HomePage = () => {
   };
 
   const form = usePetForm({
-    initialValues,
     onSubmit: (values, helpers) => {
       if (values.id) {
         fetchApi(`/cats/${values.id}`, "PATCH", JSON.stringify(values))
@@ -108,44 +104,18 @@ export const HomePage = () => {
         });
     },
   });
+
   const [cats, setCats] = useState<Cat[]>([]);
 
-  const onOpenPetPanel = () => {
-    setPanelTitle("Add a new cat");
-    setPanelIsOpen(true);
-  };
-
-  const onClose = () => {
-    setPanelIsOpen(false);
-    form.resetForm({
-      values: initialValues,
-    });
-  };
-
-  useEffect(() => {
-    fetchCats();
-  }, []);
-
   return (
-    <PetFormProvider form={form} initialValues={initialValues}>
-      <View header={<Header onOpenPetPanel={onOpenPetPanel} />}>
+    <>
+      <View header={<Header userAttributes={authentication.UserAttributes} />}>
         <CatList
           showLoading={isLoadingCats}
           cats={cats}
-          renderCat={(cat) => (
-            <CatCardContainer
-              key={cat.id}
-              cat={cat}
-              fetchCats={fetchCats}
-              setPanelTitle={setPanelTitle}
-              setPanelIsOpen={setPanelIsOpen}
-            />
-          )}
+          renderCat={(cat) => <CatCardContainer key={cat.id} cat={cat} />}
         />
       </View>
-      <Panel isOpen={panelIsOpen} onClose={onClose} title={panelTitle}>
-        <PetFormContainer fetchCats={fetchCats} />
-      </Panel>
-    </PetFormProvider>
+    </>
   );
 };

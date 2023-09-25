@@ -55,7 +55,7 @@ export const Toast = ({ id, type, text }: ToastType) => {
       >
         <div
           className={twMerge(
-            "relative flex max-w-xs items-center  rounded-md border-2 border-b bg-white py-4 pl-2 pr-7 shadow-lg",
+            "relative flex max-w-xs items-center  rounded-md border-2 border-b bg-white py-4 pl-5 pr-7 shadow-lg",
             type === "info" && "border-b-sky-600",
             type === "warning" && "border-b-yellow-600",
             type === "error" && "border-b-red-600",
