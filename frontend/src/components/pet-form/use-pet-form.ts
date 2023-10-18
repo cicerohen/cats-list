@@ -16,6 +16,27 @@ const Schema = Yup.object({
     }),
 });
 
+export const initialValues = {
+  id: "",
+  name: "",
+  breed: { id: 0, name: "" },
+  age: { id: 0, name: "" },
+  description: JSON.stringify([
+    {
+      type: "paragraph",
+      children: [
+        {
+          text: "",
+        },
+      ],
+    },
+  ]),
+  photo: {
+    key: "",
+    url: "",
+  },
+};
+
 export const usePetForm = ({
   onSubmit,
 }: Pick<FormikConfig<Cat>, "onSubmit">) => {

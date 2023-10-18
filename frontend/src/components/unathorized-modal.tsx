@@ -1,14 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Modal } from "./modal";
+import { Modal, Props } from "./modal";
 
-export const UnathorizedModal = () => {
+export const UnathorizedModal = ({ onClose }: Pick<Props, "onClose">) => {
   const location = useLocation();
   return (
     <Modal
       show={location.pathname !== "/signin"}
       title="Unauthorized"
       description="Oops! It looks like you're not authenticated. "
-      onClose={() => {}}
+      onClose={onClose}
       className="z-50"
       classNames={{ panel: "max-w-lg" }}
     >

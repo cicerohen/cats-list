@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { twMerge } from "tailwind-merge";
 
-type Props = {
+export type Props = {
   title: string;
   description?: string;
   show: boolean;

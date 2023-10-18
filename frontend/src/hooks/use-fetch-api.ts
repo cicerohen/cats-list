@@ -2,7 +2,6 @@ import { fetchApi } from "../services/fetch-api";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
 
 type Data = object | Array<object>;
-
 type Params = Parameters<typeof fetchApi>;
 
 export const useFetchApi = () => {

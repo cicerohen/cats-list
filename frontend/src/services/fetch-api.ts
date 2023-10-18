@@ -3,11 +3,17 @@ import { getAuthFromStorage } from "./authentication-storage";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-const defaultHeaders = {
+export const getDefaultHeaders = () => ({
   "Content-Type": "application/json",
-};
+  Authorization: `Bearer ${
+    getAuthFromStorage().AuthenticationResult?.AccessToken || ""
+  }`,
+});
 
-export type Options = Parameters<typeof fetch>[1];
+export type DefaultHeaders = Partial<ReturnType<typeof getDefaultHeaders>>;
+
+type Options = Parameters<typeof fetch>[1];
+type Data = object | Array<object>;
 
 export const fetchApi = async (
   resource: string,
@@ -15,15 +21,9 @@ export const fetchApi = async (
   body?: BodyInit,
   options?: Options,
 ) => {
-  const accessToken =
-    getAuthFromStorage().AuthenticationResult?.AccessToken || "";
-
   return fetch(`${API_BASE}${resource}`, {
     method,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      ...defaultHeaders,
-    },
+    headers: getDefaultHeaders(),
     body,
     ...options,
   });

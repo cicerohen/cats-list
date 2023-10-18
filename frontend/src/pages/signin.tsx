@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { Modal } from "../../components/modal";
-import { SignInForm } from "../../components/signin-form";
-import { useSignInForm } from "../../components/signin-form/use-signin-form";
-import {
-  useAuthenticationContext,
-  AuthenticationContext,
-} from "../../contexts/authentication-provider";
-import { useToasterContext } from "../../components/toaster/toaster-context";
-import { useFetchApi } from "../../hooks/use-fetch-api";
+import { Modal } from "../components/modal";
+import { SignInForm } from "../components/signin-form";
+import { useSignInForm } from "../components/signin-form/use-signin-form";
+import { useAuthenticationContext } from "../contexts/authentication-provider";
+import { useToasterContext } from "../components/toaster/toaster-context";
+import { useFetchApi } from "../hooks/use-fetch-api";
+
+import { Authentication } from "@app/types";
 
 export const SignInPage = () => {
   const fetchApi = useFetchApi();
@@ -15,13 +14,13 @@ export const SignInPage = () => {
   const { addToast } = useToasterContext();
   const navigation = useNavigate();
 
+  const onCloseModal = () => {
+    navigation("/");
+  };
+
   const form = useSignInForm({
     onSubmit: (values) => {
-      return fetchApi<AuthenticationContext["authentication"]>(
-        "/auth/signin",
-        "POST",
-        JSON.stringify(values),
-      )
+      fetchApi<Authentication>("/auth/signin", "POST", JSON.stringify(values))
         .then((data) => {
           setAuthentication(data.data);
           setAuthenticated(true);
@@ -29,6 +28,7 @@ export const SignInPage = () => {
             text: "Sign in sucessfuly",
             type: "success",
           });
+          onCloseModal();
         })
         .catch(() => {
           addToast({
@@ -39,12 +39,8 @@ export const SignInPage = () => {
     },
   });
 
-  const onClose = () => {
-    navigation(-1);
-  };
-
   return (
-    <Modal title="Sign in" show onClose={onClose}>
+    <Modal title="Sign in" show onClose={onCloseModal}>
       <SignInForm {...form} />
     </Modal>
   );

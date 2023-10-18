@@ -1,11 +1,16 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../../components/modal";
 import { PetForm } from "../../components/pet-form";
-import { usePetForm } from "../../components/pet-form/use-pet-form";
+import {
+  usePetForm,
+  initialValues,
+} from "../../components/pet-form/use-pet-form";
 
 import { useToasterContext } from "../../components/toaster/toaster-context";
 import { useFetchApi } from "../../hooks/use-fetch-api";
+import { getDefaultHeaders, DefaultHeaders } from "../../services/fetch-api";
+
 import { Age, Cat, Breed } from "@app/types";
 
 export const AddCatPage = () => {
@@ -15,34 +20,53 @@ export const AddCatPage = () => {
   const [loadingPhoto, setLoadingPhoto] = useState<boolean>(false);
   const { addToast } = useToasterContext();
 
-  const initialValues = useMemo<Cat>(
-    () => ({
-      id: "",
-      name: "",
-      breed: { id: 0, name: "" },
-      age: { id: 0, name: "" },
-      description: JSON.stringify([
-        {
-          type: "paragraph",
-          children: [
-            {
-              text: "",
-            },
-          ],
-        },
-      ]),
-      photo: {
-        key: "",
-        url: "",
-      },
-    }),
-    [],
-  );
-
   const navigation = useNavigate();
 
   const form = usePetForm({
-    onSubmit: () => {},
+    onSubmit: (values, helpers) => {
+      if (values.id) {
+        fetchApi(`/cats/${values.id}`, "PATCH", JSON.stringify(values))
+          .then(() => {
+            addToast({
+              type: "success",
+              text: "Cat was updated",
+            });
+          })
+          .catch((error) => {
+            addToast({
+              type: "error",
+              text: error.message,
+            });
+          })
+          .finally(() => {
+            helpers.setSubmitting(false);
+            helpers.resetForm();
+          });
+
+        return;
+      }
+
+      fetchApi("/cats", "POST", JSON.stringify(values))
+        .then(() => {
+          addToast({
+            type: "success",
+            text: "Cat was added",
+          });
+        })
+        .catch((error) => {
+          addToast({
+            type: "error",
+            text: error.message,
+          });
+        })
+        .finally(() => {
+          form.resetForm({
+            values: initialValues,
+          });
+
+          helpers.setSubmitting(false);
+        });
+    },
   });
 
   const fetchAges = () => {
@@ -57,7 +81,7 @@ export const AddCatPage = () => {
     });
   };
 
-  const onClose = () => {
+  const onCloseModal = () => {
     navigation("/");
   };
 
@@ -73,8 +97,11 @@ export const AddCatPage = () => {
     formData.append("file", file);
     formData.append("catId", form.values.id);
 
+    const headers: DefaultHeaders = getDefaultHeaders();
+    delete headers["Content-Type"];
+
     fetchApi<Cat["photo"]>("/photos", "POST", formData, {
-      headers: {},
+      headers,
     })
       .then((data) => {
         if (data.data) {
@@ -126,7 +153,7 @@ export const AddCatPage = () => {
   }, []);
 
   return (
-    <Modal title="Add a cat" show onClose={onClose}>
+    <Modal title="Add a cat" show onClose={onCloseModal}>
       <PetForm
         {...form}
         ages={ages}
