@@ -60,9 +60,12 @@ export const Header = ({ userAttributes }: Props) => {
                         )}
                         <div>
                           {userAttributes && (
-                            <button className="block w-full px-4 py-3 text-left hover:bg-gray-100">
+                            <Link
+                              to="/profile"
+                              className="block w-full px-4 py-3 text-left hover:bg-gray-100"
+                            >
                               Editar perfil
-                            </button>
+                            </Link>
                           )}
                           {userAttributes && (
                             <button className="block w-full  px-4 py-3 text-left hover:bg-gray-100">
