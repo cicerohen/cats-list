@@ -21,7 +21,7 @@ export const useFetchApi = () => {
     }
 
     if (!res.ok) {
-      throw res;
+      throw json.error;
     }
     return json;
   };

@@ -33,6 +33,7 @@ export type HTTPMethod =
 
 export type UserAttributes = {
   email: string;
+  name: string;
 };
 
 export type AuthenticationResult = {

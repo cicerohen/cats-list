@@ -19,8 +19,12 @@ export const SignInPage = () => {
   };
 
   const form = useSignInForm({
-    onSubmit: (values) => {
-      fetchApi<Authentication>("/auth/signin", "POST", JSON.stringify(values))
+    onSubmit: async (values) => {
+      return fetchApi<Authentication>(
+        "/auth/signin",
+        "POST",
+        JSON.stringify(values),
+      )
         .then((data) => {
           setAuthentication(data.data);
           setAuthenticated(true);

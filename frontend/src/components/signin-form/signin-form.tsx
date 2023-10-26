@@ -37,9 +37,8 @@ export const SignInForm = ({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-md bg-lime-600 px-7  py-3 text-white"
+        className="rounded-md bg-lime-600 px-7  py-3 text-white disabled:opacity-50"
       >
-        {isSubmitting && "aa"}
         Save
       </button>
     </form>

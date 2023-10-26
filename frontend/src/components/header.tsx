@@ -11,6 +11,7 @@ type Props = {
 };
 
 export const Header = ({ userAttributes }: Props) => {
+  console.log(userAttributes);
   return (
     <header className="sticky top-0 z-10 bg-lime-600">
       <div className="flex h-20  items-center justify-between px-8 lg:container lg:mx-auto lg:px-0">
@@ -52,7 +53,7 @@ export const Header = ({ userAttributes }: Props) => {
                             <UserCircleIcon className="mr-2 h-8 w-8 text-gray-600" />
                             <div>
                               <p className="text-sm font-semibold">
-                                Cicero Viana
+                                {userAttributes.name}
                               </p>
                               <p className="text-sm">{userAttributes.email}</p>
                             </div>
@@ -74,12 +75,20 @@ export const Header = ({ userAttributes }: Props) => {
                           )}
 
                           {!userAttributes && (
-                            <Link
-                              to="/signin"
-                              className="block w-full px-4 py-3 text-left hover:bg-gray-100"
-                            >
-                              Sign in
-                            </Link>
+                            <>
+                              <Link
+                                to="/signin"
+                                className="block w-full px-4 py-3 text-left hover:bg-gray-100"
+                              >
+                                Sign in
+                              </Link>
+                              <Link
+                                to="/signup"
+                                className="block w-full px-4 py-3 text-left hover:bg-gray-100"
+                              >
+                                Sign up
+                              </Link>
+                            </>
                           )}
                         </div>
                       </div>

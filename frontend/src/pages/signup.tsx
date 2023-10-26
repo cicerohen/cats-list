@@ -4,18 +4,47 @@ import { Modal } from "../components/modal";
 import { SignUpForm } from "../components/signup-form/signup-form";
 import { useSignUpForm } from "../components/signup-form/use-signup-form";
 
+import { useToasterContext } from "../components/Toaster/toaster-context";
+import { useAuthenticationContext } from "../contexts/authentication-provider";
+import { useFetchApi } from "../hooks/use-fetch-api";
+
+import { Authentication } from "@app/types";
+
 export const SignUpPage = () => {
-  const form = useSignUpForm({
-    onSubmit: (values) => {
-      console.log("values", values);
-    },
-  });
+  const fetchApi = useFetchApi();
+  const { setAuthenticated, setAuthentication } = useAuthenticationContext();
+  const { addToast } = useToasterContext();
 
   const navigation = useNavigate();
 
   const onCloseModal = () => {
     navigation("/");
   };
+
+  const form = useSignUpForm({
+    onSubmit: async (values) => {
+      return fetchApi<Authentication>(
+        "/auth/signup",
+        "POST",
+        JSON.stringify(values),
+      )
+        .then((data) => {
+          setAuthentication(data.data);
+          setAuthenticated(true);
+          addToast({
+            text: "Sign up sucessfuly",
+            type: "success",
+          });
+          onCloseModal();
+        })
+        .catch((err) => {
+          addToast({
+            text: err.message,
+            type: "error",
+          });
+        });
+    },
+  });
 
   return (
     <Modal title="Sign up" show onClose={onCloseModal}>

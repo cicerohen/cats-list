@@ -372,7 +372,7 @@ export const signup = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
-    const { email, password } = JSON.parse(event.body || "{}");
+    const { name, email, password } = JSON.parse(event.body || "{}");
 
     if (!email || !password) {
       return error("Invalid input", 400);
@@ -384,6 +384,10 @@ export const signup = async (
         Username: email,
         MessageAction: "SUPPRESS",
         UserAttributes: [
+          {
+            Name: "name",
+            Value: name,
+          },
           {
             Name: "email",
             Value: email,
@@ -428,8 +432,7 @@ export const signup = async (
       UserAttributes: normalizeUserAttributes(userResponse.UserAttributes),
     });
   } catch (err) {
-    console.error(err);
-    return error("Error when trying to signup");
+    return error(err.message);
   }
 };
 
