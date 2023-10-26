@@ -5,9 +5,11 @@ import { Toaster } from "./components/Toaster";
 
 import { HomePage } from "./pages/home";
 import { SignInPage } from "./pages/signin";
+import { SignUpPage } from "./pages/signup";
 import { AddCatPage } from "./pages/add-cat";
 import { EditCatPage } from "./pages/edit-cat";
 import { ProfilePage } from "./pages/profile";
+
 import { ToasterProvider } from "./components/toaster/toaster-context";
 import { AuthenticationProvider } from "./contexts/authentication-provider";
 import { AuthGuard } from "./components/auth-guard";
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/signin",
         element: <SignInPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignUpPage />,
       },
       {
         path: "/profile",
