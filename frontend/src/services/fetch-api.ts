@@ -13,7 +13,6 @@ export const getDefaultHeaders = () => ({
 export type DefaultHeaders = Partial<ReturnType<typeof getDefaultHeaders>>;
 
 type Options = Parameters<typeof fetch>[1];
-type Data = object | Array<object>;
 
 export const fetchApi = async (
   resource: string,

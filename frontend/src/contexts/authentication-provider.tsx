@@ -47,6 +47,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
 
         if (res.status === 401) {
           setAuthenticated(false);
+          setAuthentication({});
           return;
         }
 
@@ -55,7 +56,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
         setAuthenticated(true);
         setAuthentication({
           ...authentication,
-          UserAttributes: json.data.UserAttributes,
+          UserAttributes: json.data,
         });
       } finally {
         setAuthenticating(false);

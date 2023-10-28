@@ -9,8 +9,6 @@ export type Values = {
 const Schema = Yup.object({
   name: Yup.string(),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
-  repeatPassword: Yup.string().required("Password is required"),
 });
 
 export const useProfileForm = ({
@@ -18,8 +16,8 @@ export const useProfileForm = ({
 }: Pick<FormikConfig<Values>, "onSubmit">) => {
   return useFormik<Values>({
     initialValues: {
-      name: "dsdsdsdsdsd",
-      email: "blabla@gmail.com",
+      name: "",
+      email: "",
     },
     onSubmit,
     validationSchema: Schema,

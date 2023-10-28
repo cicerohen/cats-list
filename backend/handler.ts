@@ -23,6 +23,8 @@ import {
   AdminSetUserPasswordCommand,
   AdminInitiateAuthCommand,
   AdminGetUserCommand,
+  AdminUpdateUserAttributesCommand,
+  ChangePasswordCommand,
   AttributeType,
   RevokeTokenCommand,
   CognitoIdentityProviderClient,
@@ -364,7 +366,7 @@ export const signin = async (
     });
   } catch (err) {
     console.error(err);
-    return error("Error when trying to signin");
+    return error(err.message);
   }
 };
 
@@ -458,7 +460,7 @@ export const signout = async (
   }
 };
 
-export const me = async (
+export const showMe = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
@@ -471,12 +473,65 @@ export const me = async (
       })
     );
 
-    return success({
-      UserAttributes: normalizeUserAttributes(response.UserAttributes),
-    });
+    return success(normalizeUserAttributes(response.UserAttributes));
   } catch (err) {
     console.error(err);
     return error("Error when trying to retrieve info");
+  }
+};
+
+export const updateMe = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { authorizer } = event.requestContext;
+    const { name } = JSON.parse(event.body || "{}");
+
+    await cognitoClient.send(
+      new AdminUpdateUserAttributesCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: authorizer.jwt.claims.username,
+        UserAttributes: [
+          {
+            Name: "name",
+            Value: name,
+          },
+        ],
+      })
+    );
+
+    const response = await cognitoClient.send(
+      new AdminGetUserCommand({
+        UserPoolId: process.env.USER_POOL,
+        Username: authorizer.jwt.claims.username,
+      })
+    );
+
+    return success(normalizeUserAttributes(response.UserAttributes));
+  } catch (err) {
+    return error(err.message);
+  }
+};
+
+export const changePassword = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
+  try {
+    const { headers } = event;
+    const { password, newPassword } = JSON.parse(event.body || "{}");
+    const AccessToken = headers["authorization"].split(" ")[1];
+
+    await cognitoClient.send(
+      new ChangePasswordCommand({
+        AccessToken: AccessToken,
+        PreviousPassword: password,
+        ProposedPassword: newPassword,
+      })
+    );
+    return success({}, 201);
+  } catch (err) {
+    console.error(err);
+    return error(err.message);
   }
 };
 

@@ -90,6 +90,8 @@ provider:
             - cognito-idp:AdminCreateUser
             - cognito-idp:AdminSetUserPassword
             - cognito-idp:AdminGetUser
+            - cognito-idp:AdminUpdateUserAttributes
+            - cognito-idp:ChangePassword
           Resource:
             - "arn:aws:cognito-idp:*:*:userpool/*"
 
@@ -171,12 +173,29 @@ functions:
           path: /auth/signup
           method: "POST"
 
-  me:
-    handler: handler.me
+  showMe:
+    handler: handler.showMe
     events:
       - httpApi:
           path: /me
           method: "GET"
+          authorizer:
+            name: cognitoAuthorizer
+
+  updateMe:
+    handler: handler.updateMe
+    events:
+      - httpApi:
+          path: /me
+          method: "PATCH"
+          authorizer:
+            name: cognitoAuthorizer
+  changePassword:
+    handler: handler.changePassword
+    events:
+      - httpApi:
+          path: /change-password
+          method: "PATCH"
           authorizer:
             name: cognitoAuthorizer
 

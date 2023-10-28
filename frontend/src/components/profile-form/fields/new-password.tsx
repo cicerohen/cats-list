@@ -1,9 +1,9 @@
 import { Field } from "../field";
 import { InputPassword } from "../../input-password";
 
-export const RepeatPassword = () => {
+export const NewPassword = () => {
   return (
-    <Field name="repeatPassword" label="Repeat password">
+    <Field name="newPassword" label="New password">
       {({ field, form }) => {
         return (
           <InputPassword

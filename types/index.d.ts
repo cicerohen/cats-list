@@ -48,7 +48,7 @@ export type AuthenticationResult = {
   };
 };
 
-export type Authentication = Partial<{
-  AuthenticationResult: AuthenticationResult;
-  UserAttributes: UserAttributes;
-}>;
+export type Authentication = {
+  AuthenticationResult?: AuthenticationResult;
+  UserAttributes?: UserAttributes;
+};

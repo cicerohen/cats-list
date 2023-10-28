@@ -3,7 +3,7 @@ import { Field } from "../field";
 export const Email = () => {
   return (
     <Field name="email" label="Email">
-      {({ field, form }) => {
+      {({ field }) => {
         return (
           <input
             name={field.name}

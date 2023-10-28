@@ -3,18 +3,12 @@ import { useFormik, FormikConfig } from "formik";
 
 export type Values = {
   password: string;
-  repeatPassword: string;
+  newPassword: string;
 };
 
 const Schema = Yup.object({
-  password: Yup.string().oneOf(
-    [Yup.ref("repeatPassword")],
-    "Passwords must match",
-  ),
-  repeatPassword: Yup.string().oneOf(
-    [Yup.ref("password")],
-    "Passwords must match",
-  ),
+  password: Yup.string().required(""),
+  newPassword: Yup.string().required(""),
 });
 
 export const usePasswordForm = ({
@@ -23,7 +17,7 @@ export const usePasswordForm = ({
   return useFormik<Values>({
     initialValues: {
       password: "",
-      repeatPassword: "",
+      newPassword: "",
     },
     onSubmit,
     validationSchema: Schema,
