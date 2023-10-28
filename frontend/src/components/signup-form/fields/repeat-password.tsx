@@ -9,6 +9,7 @@ export const RepeatPassword = () => {
           <InputPassword
             name={field.name}
             disabled={form.isSubmitting}
+            onPaste={(e) => e.preventDefault()}
             value={field.value}
             onChange={field.onChange}
             onBlur={field.onBlur}

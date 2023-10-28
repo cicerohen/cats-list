@@ -4,6 +4,7 @@ import { useSignUpForm } from "./use-signup-form";
 import { Name } from "./fields/name";
 import { Email } from "./fields/email";
 import { Password } from "./fields/password";
+import { RepeatPassword } from "./fields/repeat-password";
 
 export type Props = ReturnType<typeof useSignUpForm>;
 
@@ -15,6 +16,7 @@ export const SignUpForm = (props: Props) => {
           <Name />
           <Email />
           <Password />
+          <RepeatPassword />
           <button
             type="submit"
             disabled={props.isSubmitting}

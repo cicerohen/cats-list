@@ -5,12 +5,20 @@ export type Values = {
   name: string;
   email: string;
   password: string;
+  repeatPassword: string;
 };
 
 const Schema = Yup.object({
-  name: Yup.string(),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  name: Yup.string().required("This field is required"),
+  email: Yup.string()
+    .email("Must be a valid email.")
+    .required("Email is required"),
+  password: Yup.string()
+    .required("This field is required")
+    .oneOf([Yup.ref("repeatPassword")], "Passwords must match"),
+  repeatPassword: Yup.string()
+    .required("This field is required")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
 });
 
 export const useSignUpForm = ({
@@ -21,6 +29,7 @@ export const useSignUpForm = ({
       name: "",
       email: "",
       password: "",
+      repeatPassword: "",
     },
     onSubmit,
     validationSchema: Schema,
