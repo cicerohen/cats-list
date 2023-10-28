@@ -69,9 +69,12 @@ export const Header = ({ userAttributes }: Props) => {
                             </Link>
                           )}
                           {userAttributes && (
-                            <button className="block w-full  px-4 py-3 text-left hover:bg-gray-100">
+                            <Link
+                              to="/signout"
+                              className="block w-full  px-4 py-3 text-left hover:bg-gray-100"
+                            >
                               Sign out
-                            </button>
+                            </Link>
                           )}
 
                           {!userAttributes && (

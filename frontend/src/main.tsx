@@ -6,6 +6,7 @@ import { Toaster } from "./components/Toaster";
 import { HomePage } from "./pages/home";
 import { SignInPage } from "./pages/signin";
 import { SignUpPage } from "./pages/signup";
+import { SignoutPage } from "./pages/signout";
 import { AddCatPage } from "./pages/add-cat";
 import { EditCatPage } from "./pages/edit-cat";
 import { ProfilePage } from "./pages/profile";
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUpPage />,
+      },
+      {
+        path: "/signout",
+        element: <SignoutPage />,
       },
       {
         path: "/profile",
