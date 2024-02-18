@@ -1,14 +1,20 @@
 import { useEffect, useMemo } from "react";
 import { Descendant, createEditor } from "slate";
-import { Slate, Editable, withReact } from "slate-react";
+
+import { withReact } from "slate-react";
 import { Link } from "react-router-dom";
 
-import { CatCardPhoto } from "./cat-card-photo";
-import { resetEditor } from "../../services/slate-editor-api";
+import { Photo } from "./components/photo";
+import { Description } from "./components/description";
+
+import { resetEditor } from "../../utils/slate-editor";
 
 import { Cat } from "@app/types";
 
-export type Props = Cat;
+export type Props = Cat & {
+  editable: boolean;
+};
+
 export const CatCard = ({
   id,
   name,
@@ -16,6 +22,7 @@ export const CatCard = ({
   breed,
   description,
   photo,
+  editable,
 }: Props) => {
   const editor = useMemo(() => withReact(createEditor()), []);
 
@@ -26,30 +33,26 @@ export const CatCard = ({
   }, [editor, description]);
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-gray-200 p-4 transition-all">
-      <CatCardPhoto {...photo} />
-      <h2 className="text-xl">{name}</h2>
-      <p className="text-lg text-gray-600">{breed.name}</p>
-      <p className="text-sm font-semibold text-gray-600">{age.name}</p>
-      {description && (
-        <Slate
-          editor={editor}
-          initialValue={[
-            {
-              type: "paragraph",
-              children: [
-                {
-                  text: "",
-                },
-              ],
-            },
-          ]}
-        >
-          <Editable readOnly className="mt-4 text-gray-600" />
-        </Slate>
-      )}
+    <div className="group relative flex flex-col justify-between space-y-6 overflow-hidden rounded-lg border border-gray-200 p-4 transition-all">
+      <div>
+        <Photo url={photo.url} />
 
-      <Link to="/cats/2/edit">Edit</Link>
+        <h2 className="text-xl">{name}</h2>
+        <p className="text-lg text-gray-600">{breed.name}</p>
+        <p className="text-sm font-semibold text-gray-600">{age.name}</p>
+        {description && <Description editor={editor} />}
+      </div>
+
+      {editable && (
+        <div>
+          <Link
+            to={`/cats/${id}/edit`}
+            className="inline-block rounded-md bg-green-700 px-5 py-2 text-sm font-medium text-white"
+          >
+            Edit
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

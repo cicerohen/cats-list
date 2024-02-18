@@ -1,12 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Transition } from "@headlessui/react";
+
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import { useToasterContext } from "./toaster-context";
+
+import { useToasterContext } from "./provider";
 
 import { Toast as ToastType } from "./types";
 
@@ -46,20 +48,16 @@ export const Toast = ({ id, type, text }: ToastType) => {
         unmount={true}
         entered="transition-all duration-500"
         enter="transition-all"
-        enterFrom="translate-x-[102%]"
-        enterTo="translate-x-[-5%]"
+        enterFrom="translate-x-[100%]"
+        enterTo="translate-x-[-10%]"
         leave="transition-all duration-500 ease-in-out"
-        leaveFrom="translate-x-[-5%]"
-        leaveTo="translate-x-[102%]"
+        leaveFrom="translate-x-[-10%]"
+        leaveTo="translate-x-[100%]"
         afterLeave={afterLeave}
       >
         <div
           className={twMerge(
-            "relative flex max-w-xs items-center  rounded-md border-2 border-b bg-white py-4 pl-5 pr-7 shadow-lg",
-            type === "info" && "border-b-sky-600",
-            type === "warning" && "border-b-yellow-600",
-            type === "error" && "border-b-red-600",
-            type === "success" && "border-b-green-600",
+            "relative flex max-w-xs items-center rounded-md border border-gray-200 bg-white py-4 pl-3 pr-7 shadow-xl",
           )}
         >
           <button
@@ -71,16 +69,16 @@ export const Toast = ({ id, type, text }: ToastType) => {
           <div className="flex items-center">
             <div>
               {type === "info" && (
-                <InformationCircleIcon className="mr-1 h-6 w-6 text-sky-600" />
+                <InformationCircleIcon className="mr-1 h-7 w-7 text-sky-600" />
               )}
               {type === "warning" && (
-                <ExclamationTriangleIcon className="mr-1 h-6 w-6 text-yellow-600" />
+                <ExclamationTriangleIcon className="mr-1 h-7 w-7 text-yellow-600" />
               )}
               {type === "error" && (
-                <ExclamationCircleIcon className="mr-1 h-6 w-6 text-red-600" />
+                <ExclamationCircleIcon className="mr-1 h-7 w-7 text-red-600" />
               )}
               {type === "success" && (
-                <CheckCircleIcon className="mr-1 h-6 w-6 text-green-600" />
+                <CheckCircleIcon className="mr-1 h-7 w-7 text-green-600" />
               )}
             </div>
             <p className="text-sm">{text}</p>

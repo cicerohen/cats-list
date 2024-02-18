@@ -1,1 +1,1 @@
-export * from "./profile-form";
+export * from "./signup-form";

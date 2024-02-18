@@ -1,46 +1,30 @@
+import { FormikProvider } from "formik";
+import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
+
+import { Email } from "./fields/email";
+import { Password } from "./fields/password";
+
 import { useSignInForm } from "./use-signin-form";
-import { FormField } from "../form-field";
 
 export type Props = ReturnType<typeof useSignInForm>;
 
-export const SignInForm = ({
-  values,
-  errors,
-  isSubmitting,
-  dirty,
-  handleSubmit,
-  handleBlur,
-  handleChange,
-}: Props) => {
+export const SignInForm = (props: Props) => {
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
-      <FormField label="Email" errorMessage={errors.email}>
-        <input
-          name="email"
-          disabled={isSubmitting}
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className="block h-12 w-full rounded-md border border-gray-300 px-4 disabled:bg-gray-100 disabled:opacity-70"
-        />
-      </FormField>
-      <FormField label="Password" errorMessage={errors.password}>
-        <input
-          name="password"
-          disabled={isSubmitting}
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className="block h-12 w-full rounded-md border border-gray-300 px-4 disabled:bg-gray-100 disabled:opacity-70"
-        />
-      </FormField>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="rounded-md bg-lime-600 px-7  py-3 text-white disabled:opacity-50"
-      >
-        Save
-      </button>
-    </form>
+    <FormikProvider value={props}>
+      <form className="space-y-4" onSubmit={props.handleSubmit}>
+        <Email />
+        <Password />
+        <button
+          type="submit"
+          disabled={props.isSubmitting || !props.dirty}
+          className="flex items-center rounded-md bg-green-700 px-7 py-3 text-white disabled:opacity-70"
+        >
+          {props.isSubmitting && (
+            <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
+          )}
+          Sign in
+        </button>
+      </form>
+    </FormikProvider>
   );
 };

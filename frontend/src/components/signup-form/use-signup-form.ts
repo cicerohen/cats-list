@@ -8,7 +8,7 @@ export type Values = {
   repeatPassword: string;
 };
 
-const Schema = Yup.object({
+export const Schema = Yup.object({
   name: Yup.string().required("This field is required"),
   email: Yup.string()
     .email("Must be a valid email.")
@@ -33,7 +33,7 @@ export const useSignUpForm = ({
     },
     onSubmit,
     validationSchema: Schema,
-    validateOnBlur: true,
+    validateOnBlur: false,
     validateOnChange: false,
   });
 };

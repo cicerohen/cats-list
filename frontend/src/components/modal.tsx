@@ -1,11 +1,14 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { twMerge } from "tailwind-merge";
+import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
+import { Loader } from "../components/loader";
 
 export type Props = {
   title: string;
   description?: string;
   show: boolean;
+  showLoader?: boolean;
   onClose: () => void;
   children: React.ReactNode;
   className?: string;
@@ -19,6 +22,7 @@ export const Modal = ({
   children,
   className,
   classNames,
+  showLoader,
   onClose,
 }: Props) => {
   return (
@@ -27,7 +31,7 @@ export const Modal = ({
         <Dialog
           as="div"
           className={twMerge("relative z-10", className)}
-          onClose={onClose}
+          onClose={() => null}
           open={show}
           tabIndex={0}
         >
@@ -56,10 +60,11 @@ export const Modal = ({
               >
                 <Dialog.Panel
                   className={twMerge(
-                    "w-full max-w-2xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all",
+                    " w-full max-w-2xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all",
                     classNames?.panel,
                   )}
                 >
+                  {showLoader && <Loader />}
                   <div>
                     <Dialog.Title
                       as="h3"
@@ -70,6 +75,12 @@ export const Modal = ({
                     {description && (
                       <Dialog.Description>{description}</Dialog.Description>
                     )}
+                    <button
+                      className="absolute right-5 top-5"
+                      onClick={onClose}
+                    >
+                      <XMarkIcon className="h-5 w-5" />
+                    </button>
                   </div>
                   <div className="pt-4">{children}</div>
                 </Dialog.Panel>

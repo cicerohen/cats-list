@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { Toast } from "./toast";
 
-import { useToasterContext } from "./toaster-context";
+import { useToasterContext } from "./provider";
 
 export const Toaster = () => {
   const [container, setContainer] = useState<HTMLElement>();

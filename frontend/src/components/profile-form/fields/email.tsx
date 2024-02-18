@@ -1,8 +1,9 @@
-import { Field } from "../field";
+import { Field } from "../../field";
+import { ProfileValues } from "../use-profile-form";
 
 export const Email = () => {
   return (
-    <Field name="email" label="Email">
+    <Field<ProfileValues["email"]> name="email" label="Email">
       {({ field }) => {
         return (
           <input

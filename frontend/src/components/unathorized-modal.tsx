@@ -14,7 +14,7 @@ export const UnathorizedModal = ({ onClose }: Pick<Props, "onClose">) => {
     >
       <Link
         to="/signin"
-        className="inline-block rounded-md bg-lime-600 px-5 py-3 text-white"
+        className="inline-block rounded-md bg-green-700 px-5 py-3 text-white"
       >
         Sign in
       </Link>

@@ -4,10 +4,9 @@ import { Navigate } from "react-router-dom";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
 
 export const SignoutPage = () => {
-  const { setAuthenticated, setAuthentication } = useAuthenticationContext();
+  const { setAuthentication } = useAuthenticationContext();
 
   useEffect(() => {
-    setAuthenticated(false);
     setAuthentication({});
   }, []);
 

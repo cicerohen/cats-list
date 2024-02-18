@@ -14,6 +14,7 @@ export type Cat = {
   age: Age;
   breed: Breed;
   description: string;
+  owner_email: string;
   photo: {
     key: string;
     url: string;
@@ -51,4 +52,5 @@ export type AuthenticationResult = {
 export type Authentication = {
   AuthenticationResult?: AuthenticationResult;
   UserAttributes?: UserAttributes;
+  Username?: string;
 };

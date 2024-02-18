@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "module": "ES6",
+    "module": "Node16",
     "target": "ES2015",
-    "moduleResolution": "Node",
+    "moduleResolution": "Node16",
     "outDir": "./dist",
     "sourceMap": true,
     "esModuleInterop": true
   },
-  "include": ["./handler.ts"],
+  "include": ["./handlers/**/*.ts", "./utils/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -3,18 +3,18 @@ import { Modal } from "../components/modal";
 import { SignInForm } from "../components/signin-form";
 import { useSignInForm } from "../components/signin-form/use-signin-form";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
-import { useToasterContext } from "../components/toaster/toaster-context";
+import { useToasterContext } from "../components/toaster/provider";
 import { useFetchApi } from "../hooks/use-fetch-api";
 
 import { Authentication } from "@app/types";
 
 export const SignInPage = () => {
   const fetchApi = useFetchApi();
-  const { setAuthentication, setAuthenticated } = useAuthenticationContext();
+  const { setAuthentication } = useAuthenticationContext();
   const { addToast } = useToasterContext();
   const navigation = useNavigate();
 
-  const onCloseModal = () => {
+  const closeModal = () => {
     navigation("/");
   };
 
@@ -27,24 +27,23 @@ export const SignInPage = () => {
       )
         .then((data) => {
           setAuthentication(data.data);
-          setAuthenticated(true);
           addToast({
             text: "Sign in sucessfuly",
             type: "success",
           });
-          onCloseModal();
+          closeModal();
         })
-        .catch(() => {
+        .catch((error) => {
           addToast({
-            text: "Sign in failed.",
             type: "error",
+            text: error.message,
           });
         });
     },
   });
 
   return (
-    <Modal title="Sign in" show onClose={onCloseModal}>
+    <Modal title="Sign in" show onClose={closeModal}>
       <SignInForm {...form} />
     </Modal>
   );

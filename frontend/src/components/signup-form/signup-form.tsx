@@ -1,10 +1,12 @@
 import { FormikProvider } from "formik";
-import { useSignUpForm } from "./use-signup-form";
+import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 
 import { Name } from "./fields/name";
 import { Email } from "./fields/email";
 import { Password } from "./fields/password";
 import { RepeatPassword } from "./fields/repeat-password";
+
+import { useSignUpForm } from "./use-signup-form";
 
 export type Props = ReturnType<typeof useSignUpForm>;
 
@@ -19,10 +21,13 @@ export const SignUpForm = (props: Props) => {
           <RepeatPassword />
           <button
             type="submit"
-            disabled={props.isSubmitting}
-            className="rounded-md bg-lime-600 px-7  py-3 text-white"
+            disabled={props.isSubmitting || !props.dirty}
+            className="flex items-center rounded-md  bg-green-700 px-7 py-3 text-white disabled:opacity-70"
           >
-            Register
+            {props.isSubmitting && (
+              <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            Sign up
           </button>
         </form>
       </FormikProvider>

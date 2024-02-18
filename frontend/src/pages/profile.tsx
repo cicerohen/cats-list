@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../components/modal";
 import { ProfileForm } from "../components/profile-form";
+
 import { useProfileForm } from "../components/profile-form/use-profile-form";
 import { usePasswordForm } from "../components/profile-form/use-password-form";
-import { useAuthenticationContext } from "../contexts/authentication-provider";
+import { useToasterContext } from "../components/toaster/provider";
 import { useFetchApi } from "../hooks/use-fetch-api";
-import { useToasterContext } from "../components/Toaster/toaster-context";
+import { useAuthenticationContext } from "../contexts/authentication-provider";
 
-import { UserAttributes } from "@app/types";
+import { UserAttributes, Authentication } from "@app/types";
 
 export const ProfilePage = () => {
   const { addToast } = useToasterContext();
@@ -18,24 +19,27 @@ export const ProfilePage = () => {
 
   const profileForm = useProfileForm({
     onSubmit: async (values, helpers) => {
-      return fetchApi<UserAttributes>("/me", "PATCH", JSON.stringify(values))
+      return fetchApi<Authentication>("/me", "PATCH", JSON.stringify(values))
         .then((res) => {
-          setAuthentication({ ...authentication, UserAttributes: res.data });
+          setAuthentication({
+            ...authentication,
+            UserAttributes: res.data.UserAttributes,
+          });
           addToast({
-            text: "Profile updated sucessfuly",
+            text: "Profile was updated",
             type: "success",
           });
           helpers.resetForm({
             values: {
-              name: res.data.name,
-              email: res.data.email,
+              name: res.data.UserAttributes?.name || "",
+              email: res.data.UserAttributes?.email || "",
             },
           });
         })
-        .catch(() => {
+        .catch((error) => {
           addToast({
-            text: "Profile update failed.",
             type: "error",
+            text: error.message,
           });
         });
     },
@@ -50,14 +54,14 @@ export const ProfilePage = () => {
       )
         .then(() => {
           addToast({
-            text: "Password updated sucessfuly",
+            text: "Password was updated",
             type: "success",
           });
         })
         .catch((err) => {
           addToast({
-            text: err.message,
             type: "error",
+            text: err.message,
           });
         })
         .finally(() => {

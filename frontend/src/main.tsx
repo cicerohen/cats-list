@@ -1,7 +1,6 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { Toaster } from "./components/Toaster";
+import { Toaster } from "./components/toaster";
 
 import { HomePage } from "./pages/home";
 import { SignInPage } from "./pages/signin";
@@ -11,9 +10,11 @@ import { AddCatPage } from "./pages/add-cat";
 import { EditCatPage } from "./pages/edit-cat";
 import { ProfilePage } from "./pages/profile";
 
-import { ToasterProvider } from "./components/toaster/toaster-context";
+import { ToasterProvider } from "./components/toaster/provider";
 import { AuthenticationProvider } from "./contexts/authentication-provider";
-import { AuthGuard } from "./components/auth-guard";
+import { CatsProvider } from "./contexts/cats-provider";
+import { SessionGuard } from "./containers/session-guard";
+import { CatOwnerEditGuard } from "./containers/cat-owner-edit-guard";
 
 import "./index.css";
 
@@ -32,17 +33,19 @@ const router = createBrowserRouter([
         path: "/cats/new",
 
         element: (
-          <AuthGuard>
+          <SessionGuard>
             <AddCatPage />
-          </AuthGuard>
+          </SessionGuard>
         ),
       },
       {
         path: "/cats/:id/edit",
         element: (
-          <AuthGuard>
-            <EditCatPage />
-          </AuthGuard>
+          <SessionGuard>
+            <CatOwnerEditGuard>
+              <EditCatPage />
+            </CatOwnerEditGuard>
+          </SessionGuard>
         ),
       },
       {
@@ -59,19 +62,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <ProfilePage />,
+        element: (
+          <SessionGuard>
+            <ProfilePage />
+          </SessionGuard>
+        ),
       },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <AuthenticationProvider>
+  <AuthenticationProvider>
+    <CatsProvider>
       <ToasterProvider>
         <RouterProvider router={router} />
         <Toaster />
       </ToasterProvider>
-    </AuthenticationProvider>
-  </React.StrictMode>,
+    </CatsProvider>
+  </AuthenticationProvider>,
 );

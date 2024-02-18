@@ -19,6 +19,7 @@
     "sls:remove": "turbo run sls:remove",
     "sls:invoke": "turbo run sls:invoke --",
     "lint": "turbo run lint",
+    "tsc": "turbo run tsc",
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

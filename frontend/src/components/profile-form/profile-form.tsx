@@ -24,7 +24,7 @@ export const ProfileForm = ({ profileForm, passwordForm }: Props) => {
           <button
             type="submit"
             disabled={profileForm.isSubmitting || !profileForm.dirty}
-            className="flex items-center rounded-md  border border-gray-200 bg-lime-600  px-5 py-2 font-medium text-white disabled:opacity-50"
+            className="flex items-center rounded-md  border border-gray-200 bg-green-700 px-5 py-2 font-medium text-white disabled:opacity-50"
           >
             {profileForm.isSubmitting && (
               <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
@@ -45,7 +45,7 @@ export const ProfileForm = ({ profileForm, passwordForm }: Props) => {
               !passwordForm.dirty ||
               !passwordForm.isValid
             }
-            className="flex items-center rounded-md  border border-gray-200 bg-lime-600  px-5 py-2 font-medium text-white disabled:opacity-50"
+            className="flex items-center rounded-md  border border-gray-200 bg-green-700  px-5 py-2 font-medium text-white disabled:opacity-50"
           >
             {passwordForm.isSubmitting && <ArrowPathIcon className="h-5 w-5" />}
             <span>Save</span>

@@ -1,35 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { View } from "../components/view";
-import { CatList } from "../components/cat-list";
-import { Header } from "../components/header";
-
-import { Cat } from "@app/types";
+import { CatsList } from "../components/cats-list";
+import { CatCard } from "../components/cat-card";
 
 import { useAuthenticationContext } from "../contexts/authentication-provider";
-import { useFetchApi } from "../hooks/use-fetch-api";
+import { useCatsContext } from "../contexts/cats-provider";
 
 export const HomePage = () => {
-  const fetchApi = useFetchApi();
   const { authentication } = useAuthenticationContext();
-
-  const fetchCats = () => {
-    fetchApi<Cat[]>("/cats").then((data) => {
-      setCats(data.data);
-    });
-  };
-
-  const [cats, setCats] = useState<Cat[]>([]);
+  const { cats, loading, fetchCats } = useCatsContext();
 
   useEffect(() => {
     fetchCats();
   }, []);
 
   return (
-    <>
-      <View header={<Header userAttributes={authentication.UserAttributes} />}>
-        <CatList cats={cats} />
-      </View>
-    </>
+    <View>
+      <CatsList
+        cats={cats}
+        loading={loading}
+        renderCat={(cat) => (
+          <CatCard
+            {...cat}
+            editable={cat.owner_email === authentication.Username}
+          />
+        )}
+      />
+    </View>
   );
 };

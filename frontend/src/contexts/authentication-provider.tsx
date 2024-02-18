@@ -3,17 +3,15 @@ import { Authentication } from "@app/types";
 import {
   getAuthFromStorage,
   setAuthToStorage,
-} from "../services/authentication-storage";
+} from "../utils/authentication-storage";
 
-import { fetchApi } from "../services/fetch-api";
+import { fetchApi } from "../utils/fetch-api";
 
 export type AuthenticationContext = {
   authentication: Authentication;
   authenticating: boolean;
-  authenticated: boolean;
   setAuthentication: (authentication: Authentication) => void;
   setAuthenticating: (authenticating: boolean) => void;
-  setAuthenticated: (authenticated: boolean) => void;
 };
 
 const AuthenticationContext = createContext({} as AuthenticationContext);
@@ -27,15 +25,12 @@ export const AuthenticationProvider = ({ children }: Props) => {
     getAuthFromStorage(),
   );
   const [authenticating, setAuthenticating] = useState<boolean>(true);
-  const [authenticated, setAuthenticated] = useState(false);
 
   const value = {
     authentication,
     authenticating,
-    authenticated,
     setAuthentication,
     setAuthenticating,
-    setAuthenticated,
   };
 
   useEffect(() => {
@@ -46,17 +41,14 @@ export const AuthenticationProvider = ({ children }: Props) => {
         const res = await fetchApi("/me");
 
         if (res.status === 401) {
-          setAuthenticated(false);
           setAuthentication({});
           return;
         }
 
         const json = await res.json();
-
-        setAuthenticated(true);
         setAuthentication({
           ...authentication,
-          UserAttributes: json.data,
+          ...json.data,
         });
       } finally {
         setAuthenticating(false);

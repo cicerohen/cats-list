@@ -1,13 +1,16 @@
-import { fetchApi } from "../services/fetch-api";
+import { fetchApi } from "../utils/fetch-api";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
 
 type Data = object | Array<object>;
 type Params = Parameters<typeof fetchApi>;
 
-export const useFetchApi = () => {
-  const { setAuthenticated } = useAuthenticationContext();
+export { getDefaultHeaders } from "../utils/fetch-api";
+export type { DefaultHeaders } from "../utils/fetch-api";
 
-  return async <D extends Data = Data>(
+export const useFetchApi = () => {
+  const { setAuthentication } = useAuthenticationContext();
+
+  return async <D extends Data>(
     ...params: Params
   ): Promise<{
     data: D;
@@ -17,7 +20,7 @@ export const useFetchApi = () => {
     const json = await res.json();
 
     if (res.status === 401) {
-      setAuthenticated(false);
+      setAuthentication({});
     }
 
     if (!res.ok) {

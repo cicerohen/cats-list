@@ -1,9 +1,10 @@
-import { Field } from "../field";
+import { Field } from "../../field";
 import { InputPassword } from "../../input-password";
+import { Values } from "../use-signup-form";
 
 export const Password = () => {
   return (
-    <Field name="password" label="Password">
+    <Field<Values["password"]> name="password" label="Password">
       {({ field, form }) => {
         return (
           <InputPassword

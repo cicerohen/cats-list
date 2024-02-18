@@ -97,7 +97,7 @@ provider:
 
 functions:
   createCat:
-    handler: handler.createCat
+    handler: handlers/create-cat.handler
     events:
       - httpApi:
           path: /cats
@@ -105,19 +105,19 @@ functions:
           authorizer:
             name: cognitoAuthorizer
   listCats:
-    handler: handler.listCats
+    handler: handlers/list-cats.handler
     events:
       - httpApi:
           path: /cats
           method: "GET"
   showCat:
-    handler: handler.showCat
+    handler: handlers/show-cat.handler
     events:
       - httpApi:
           path: /cats/{id}
           method: "GET"
   editCat:
-    handler: handler.editCat
+    handler: handlers/edit-cat.handler
     events:
       - httpApi:
           path: /cats/{id}
@@ -125,7 +125,7 @@ functions:
           authorizer:
             name: cognitoAuthorizer
   deleteCat:
-    handler: handler.deleteCat
+    handler: handlers/delete-cat.handler
     events:
       - httpApi:
           path: /cats/{id}
@@ -133,19 +133,19 @@ functions:
           authorizer:
             name: cognitoAuthorizer
   listBreeds:
-    handler: handler.listBreeds
+    handler: handlers/list-breeds.handler
     events:
       - httpApi:
           path: /breeds
           method: "GET"
   listAges:
-    handler: handler.listAges
+    handler: handlers/list-ages.handler
     events:
       - httpApi:
           path: /ages
           method: "GET"
   uploadPhoto:
-    handler: handler.uploadPhoto
+    handler: handlers/upload-photo.handler
     events:
       - httpApi:
           path: /photos
@@ -153,7 +153,7 @@ functions:
           authorizer:
             name: cognitoAuthorizer
   deletePhoto:
-    handler: handler.deletePhoto
+    handler: handlers/delete-photo.handler
     events:
       - httpApi:
           path: /photos/{key}
@@ -161,20 +161,20 @@ functions:
           authorizer:
             name: cognitoAuthorizer
   signin:
-    handler: handler.signin
+    handler: handlers/signin.handler
     events:
       - httpApi:
           path: /auth/signin
           method: "POST"
   signup:
-    handler: handler.signup
+    handler: handlers/signup.handler
     events:
       - httpApi:
           path: /auth/signup
           method: "POST"
 
   showMe:
-    handler: handler.showMe
+    handler: handlers/show-me.handler
     events:
       - httpApi:
           path: /me
@@ -183,7 +183,7 @@ functions:
             name: cognitoAuthorizer
 
   updateMe:
-    handler: handler.updateMe
+    handler: handlers/update-me.handler
     events:
       - httpApi:
           path: /me
@@ -191,7 +191,7 @@ functions:
           authorizer:
             name: cognitoAuthorizer
   changePassword:
-    handler: handler.changePassword
+    handler: handlers/change-password.handler
     events:
       - httpApi:
           path: /change-password

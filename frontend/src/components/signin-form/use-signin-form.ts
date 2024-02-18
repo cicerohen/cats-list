@@ -6,7 +6,7 @@ export type Values = {
   password: string;
 };
 
-const Schema = Yup.object({
+export const Schema = Yup.object({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
@@ -21,7 +21,7 @@ export const useSignInForm = ({
     },
     onSubmit,
     validationSchema: Schema,
-    validateOnBlur: true,
+    validateOnBlur: false,
     validateOnChange: false,
   });
 };

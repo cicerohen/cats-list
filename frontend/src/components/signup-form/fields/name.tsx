@@ -1,8 +1,9 @@
-import { Field } from "../field";
+import { Field } from "../../field";
+import { Values } from "../use-signup-form";
 
 export const Name = () => {
   return (
-    <Field name="name" label="Name">
+    <Field<Values["name"]> name="name" label="Name">
       {({ field, form }) => {
         return (
           <input
