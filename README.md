@@ -1,12 +1,12 @@
 [README em português](/README-ptBR.md)
 
 # Playground React AWS
+
 [Click here to see more playground examples](https://github.com/cicerohen/playground)
 
 **Playground React AWS** is just an app that shows how to use some AWS tools. ([see video](https://github.com/cicerohen/playground-react-aws/assets/819041/b2328919-f2a1-428f-85ff-e9bdabbc4a8d))
 
 <img width="1071" alt="Screenshot 2024-03-02 at 12 41 10" src="https://github.com/cicerohen/playground-react-aws/assets/819041/04f6bb51-dfc7-4b37-9b2a-f031b19b566a">
-
 
 ### Tools used in this project
 
@@ -30,7 +30,6 @@ All AWS services above are available on [**free tier**](https://aws.amazon.com/f
 - [Formik](https://formik.org/) and [Yup](https://github.com/jquense/yup) to handle app forms
 - [HeadlessUI](https://headlessui.com/) to build common UI components like popover, combobox and modal
 
-
 #### Tests
 
 Soon [Jest](https://jestjs.io/) and [Cypress](https://www.cypress.io/) tests will be added. Feel free to fork it and add test cases if you are interested in practicing tests.
@@ -51,32 +50,38 @@ Before you follow the steps below you need to [create an account](https://portal
    REGION=us-east-1
    ```
 
-4. Run _yarn sls:deploy_ to provision/start all AWS services configured in [_/backend/serverless.yml_](/backend/serverless.yml)
+4. Install dependencies and build backend
 
-5. Wait for _yarn sls:deploy_ to complete and check if all services were created:
+   ```
+      yarn && yarn build --scope=backend
+   ```
+
+5. Run _yarn sls:deploy_ to provision/start all AWS services configured in [_/backend/serverless.yml_](/backend/serverless.yml)
+
+6. Wait for _yarn sls:deploy_ to complete and check if all services were created:
    ![Screenshot from 2024-03-01 14-35-03](https://github.com/cicerohen/playground-react-aws/assets/819041/c8668cd5-1b0e-43e2-9d5c-74d36a49d805)
 
-   5.1 [API Gateway routes](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1)
+   6.1 [API Gateway routes](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1)
 
-   5.2 [Lambda functions](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions)
+   6.2 [Lambda functions](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions)
 
-   5.3 [DynamoDB tables](https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables)
+   6.3 [DynamoDB tables](https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables)
 
-   5.4 [S3 bucket](https://s3.console.aws.amazon.com/s3/home?region=us-east-1#)
+   6.4 [S3 bucket](https://s3.console.aws.amazon.com/s3/home?region=us-east-1#)
 
-   5.5 [Cognito user pool](https://us-east-1.console.aws.amazon.com/cognito/v2/idp/user-pools?region=us-east-1)
+   6.5 [Cognito user pool](https://us-east-1.console.aws.amazon.com/cognito/v2/idp/user-pools?region=us-east-1)
 
-6. If _step 5_ was successful navigate to [API Gateway dashboard](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1) and follow the steps below:
+7. If **_step 6_** was successful navigate to [API Gateway dashboard](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1) and follow the steps below:
 
-   6.1 Click on an API called _react-aws_
+   7.1 Click on an API called _react-aws_
 
-   6.2 Click on a link on the left sidebar containing _"API:react-aws..."_
+   7.2 Click on a link on the left sidebar containing _"API:react-aws..."_
 
-   6.3 Search for a section called _Stages for react-aws_
+   7.3 Search for a section called _Stages for react-aws_
 
-   6.4 Copy Invoke URL, paste it into your browser, and add _/breeds_ at the end.
+   7.4 Copy Invoke URL, paste it into your browser, and add _/breeds_ at the end.
 
-   6.5 Navigate to the URL to see cat breeds. And that`s it, your REST API is working.
+   7.5 Navigate to the URL to see cat breeds. And that`s it, your REST API is working.
 
 ### Configuring frontend
 

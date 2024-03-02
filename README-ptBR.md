@@ -48,32 +48,38 @@ Antes de seguir os passos abaixo você precisa [criar uma conta](https://portal.
    REGION=us-east-1
    ```
 
-4. Execute _yarn sls:deploy_  para inicializar todos os serviços da AWS configurados em [_/backend/serverless.yml_](/backend/serverless.yml)
+4. Instale as dependências e faça o build do backend
 
-5. Aguarde o comando _yarn sls:deploy_ to ser concluído e verifique se todos os serviços da AWS foram criados:
-![Screenshot from 2024-03-01 14-35-03](https://github.com/cicerohen/playground-react-aws/assets/819041/c8668cd5-1b0e-43e2-9d5c-74d36a49d805)
+   ```
+      yarn && yarn build --scope=backend
+   ```
 
-   5.1 [Rotas do API Gateway](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1)
+5. Execute _yarn sls:deploy_ para inicializar todos os serviços da AWS configurados em [_/backend/serverless.yml_](/backend/serverless.yml)
 
-   5.2 [Funções Lambda](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions)
+6. Aguarde o comando _yarn sls:deploy_ to ser concluído e verifique se todos os serviços da AWS foram criados:
+   ![Screenshot from 2024-03-01 14-35-03](https://github.com/cicerohen/playground-react-aws/assets/819041/c8668cd5-1b0e-43e2-9d5c-74d36a49d805)
 
-   5.3 [Tabelas no DynamoDB](https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables)
+   6.1 [Rotas do API Gateway](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1)
 
-   5.4 [Bucket no S3](https://s3.console.aws.amazon.com/s3/home?region=us-east-1#)
+   6.2 [Funções Lambda](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions)
 
-   5.5 [User pool no Cognito](https://us-east-1.console.aws.amazon.com/cognito/v2/idp/user-pools?region=us-east-1)
+   6.3 [Tabelas no DynamoDB](https://us-east-1.console.aws.amazon.com/dynamodbv2/home?region=us-east-1#tables)
 
-7. Quando o _passo 5_ for concluído navegue para o [dashboard do API Gateway](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1) e siga os passos abaixo:
+   6.4 [Bucket no S3](https://s3.console.aws.amazon.com/s3/home?region=us-east-1#)
 
-   6.1 Clique na API chamada _react-aws_
+   6.5 [User pool no Cognito](https://us-east-1.console.aws.amazon.com/cognito/v2/idp/user-pools?region=us-east-1)
 
-   6.2 Click no link contendo _"API:react-aws..."_ na barra lateral da página
+7. Quando o **_passo 6_** for concluído navegue para o [dashboard do API Gateway](https://us-east-1.console.aws.amazon.com/apigateway/main/apis?region=us-east-1) e siga os passos abaixo:
 
-   6.3 Procure uma seção chamada _Estágios para a react-aws_
+   7.1 Clique na API chamada _react-aws_
 
-   6.4 Copie o link da coluna Invocar URL, cole no navegador e adicione _/breeds_ no final da URL.
+   7.2 Click no link contendo _"API:react-aws..."_ na barra lateral da página
 
-   6.5 Navegue para a URL para ver as raças de gatos serem listadas. E enfim, sua REST API está funcionando.
+   7.3 Procure uma seção chamada _Estágios para a react-aws_
+
+   7.4 Copie o link da coluna Invocar URL, cole no navegador e adicione _/breeds_ no final da URL.
+
+   7.5 Navegue para a URL para ver as raças de gatos serem listadas. E enfim, sua REST API está funcionando.
 
 ### Configurando o frontend
 

@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "tsc",
+    "build": "tsc",
     "sls:deploy": "serverless deploy --verbose",
     "sls:remove": "serverless remove --verbose",
     "sls:invoke": "serverless invoke local"
