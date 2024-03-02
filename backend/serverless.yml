@@ -39,7 +39,7 @@ provider:
   name: aws
   stage: prod
   region: us-east-1
-  runtime: nodejs14.x
+  runtime: nodejs20.x
   httpApi:
     name: react-aws
     cors: true

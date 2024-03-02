@@ -23,7 +23,7 @@
     "@types/aws-lambda": "^8.10.119",
     "@types/node": "^20.3.3",
     "dotenv": "^16.0.3",
-    "serverless": "^3.31.0",
+    "serverless": "^3.37.0",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-functions-base-path": "^1.0.33",
     "serverless-s3-cleaner": "^2.0.2",
