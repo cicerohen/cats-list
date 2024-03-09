@@ -1,10 +1,8 @@
 [README em português](/README-ptBR.md)
 
-# Playground React AWS
+# Cats List
 
-[Click here to see more playground examples](https://github.com/cicerohen/playground)
-
-**Playground React AWS** is just an app that shows how to use some AWS tools. ([see video](https://github.com/cicerohen/playground-react-aws/assets/819041/b2328919-f2a1-428f-85ff-e9bdabbc4a8d))
+**Cats List** is just an app that shows how to use some AWS tools. ([see video](https://github.com/cicerohen/playground-react-aws/assets/819041/b2328919-f2a1-428f-85ff-e9bdabbc4a8d))
 
 <img width="1071" alt="Screenshot 2024-03-02 at 12 41 10" src="https://github.com/cicerohen/playground-react-aws/assets/819041/04f6bb51-dfc7-4b37-9b2a-f031b19b566a">
 
