@@ -1,6 +1,5 @@
-## Playground React AWS
+## Cats List
 
-[Click aqui para ver mais exemplos](https://github.com/cicerohen/playground)
 
 Apenas um app web simples que mostra como usar alguns serviços da AWS ([veja o video](https://github.com/cicerohen/playground-react-aws/assets/819041/b2328919-f2a1-428f-85ff-e9bdabbc4a8d))
 
