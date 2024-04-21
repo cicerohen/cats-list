@@ -44,8 +44,8 @@ export const Schema = Yup.object({
 export const initialValues = {
   id: "",
   name: "",
-  breed: { id: 0, name: "" },
-  age: { id: 0, name: "" },
+  breed: { id: "", name: "" },
+  age: { id: "", name: "" },
   description: JSON.stringify(DEFAULT_EDITOR_VALUE),
   photo: {
     key: "",

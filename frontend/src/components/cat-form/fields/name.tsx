@@ -10,6 +10,7 @@ export const Name = () => {
       {({ field }) => {
         return (
           <input
+            placeholder="Enter your cat name"
             disabled={isSubmitting}
             name={field.name}
             value={field.value}

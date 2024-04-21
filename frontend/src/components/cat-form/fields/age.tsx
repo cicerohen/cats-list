@@ -29,7 +29,10 @@ export const Age = ({ ages }: Props) => {
             }}
           >
             <div className="relative">
-              <Listbox.Button className="relative h-12 w-full cursor-default rounded-md border border-gray-300 pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70">
+              <Listbox.Button
+                aria-label="Select the cat age"
+                className="relative h-12 w-full cursor-default rounded-md border border-gray-300 pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70"
+              >
                 <span className="block truncate text-left">
                   {field.value.name}
                 </span>

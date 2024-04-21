@@ -9,6 +9,7 @@ export const Password = () => {
       {({ field, form }) => {
         return (
           <InputPassword
+            id={field.name}
             name={field.name}
             disabled={form.isSubmitting}
             value={field.value}

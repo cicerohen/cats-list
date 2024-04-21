@@ -56,6 +56,7 @@ export const Photo = ({ loading, disabled, onChange, onRemove }: Props) => {
                 type="file"
                 disabled={disabled}
                 title="Change photo"
+                aria-label="Change photo"
                 onChange={onChangeHandler}
                 accept=".jpg, .jpeg, .png"
                 className="absolute left-0 top-0 h-full w-full cursor-pointer rounded-full opacity-0"

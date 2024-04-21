@@ -1,10 +1,10 @@
 export type Breed = {
-  id: number;
+  id: string;
   name: string;
 };
 
 export type Age = {
-  id: number;
+  id: string;
   name: string;
 };
 

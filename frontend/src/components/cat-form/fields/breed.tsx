@@ -47,6 +47,8 @@ export const Breed = ({ breeds }: Props) => {
             <div className="relative">
               <div className="relative overflow-hidden rounded-lg border border-gray-300">
                 <Combobox.Input
+                  placeholder="Select the cat breed"
+                  name={field.name}
                   className="h-12 w-full rounded-lg border-none pl-4 pr-8 disabled:bg-gray-100 disabled:opacity-70"
                   displayValue={(breed: BreedType) => breed.name}
                   onBlur={() => {

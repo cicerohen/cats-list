@@ -7,6 +7,7 @@ export const Email = () => {
       {({ field }) => {
         return (
           <input
+            id={field.name}
             name={field.name}
             value={field.value}
             onChange={field.onChange}

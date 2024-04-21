@@ -53,6 +53,7 @@ export const Description = ({ editor }: Props) => {
                 </div>
               </section>
               <Editable
+                placeholder="Describe your cat"
                 className="p-4"
                 readOnly={isSubmitting}
                 renderLeaf={renderLeaf}

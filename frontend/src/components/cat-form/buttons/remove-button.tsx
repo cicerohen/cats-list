@@ -9,6 +9,7 @@ type Props = {
 export const RemoveButton = ({ disabled, loading, onClick }: Props) => {
   return (
     <button
+      title="Remove cat"
       type="button"
       disabled={disabled}
       className="flex items-center rounded-md px-7 py-3 text-red-600 enabled:hover:bg-red-100 disabled:opacity-70"
