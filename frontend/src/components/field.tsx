@@ -6,6 +6,8 @@ import {
   FormikState,
 } from "formik";
 
+import { Box, Text } from "grommet";
+
 type Props<Value> = {
   name: string;
   label: string;
@@ -21,14 +23,16 @@ export const Field = <Value,>({ name, label, children }: Props<Value>) => {
     useFormikContext<FormikValues>();
 
   return (
-    <div className="block">
-      <span className="mb-2 block">{label}</span>
+    <Box>
+      <Text margin={{ bottom: "small" }}>{label}</Text>
       {children({
         field: getFieldProps(name),
         helpers: getFieldHelpers(name),
         form: rest,
       })}
-      <p className="mt-2 text-sm text-red-600">{getFieldMeta(name).error}</p>
-    </div>
+      <Text margin={{ top: "small" }} size="small" color="red">
+        {getFieldMeta(name).error}
+      </Text>
+    </Box>
   );
 };

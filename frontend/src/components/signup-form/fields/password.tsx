@@ -1,5 +1,5 @@
 import { Field } from "../../field";
-import { InputPassword } from "../../input-password";
+import { TextInput } from "grommet";
 import { Values } from "../use-signup-form";
 
 export const Password = () => {
@@ -7,7 +7,9 @@ export const Password = () => {
     <Field<Values["password"]> name="password" label="Password">
       {({ field, form }) => {
         return (
-          <InputPassword
+          <TextInput
+            type="password"
+            id={field.name}
             name={field.name}
             disabled={form.isSubmitting}
             value={field.value}

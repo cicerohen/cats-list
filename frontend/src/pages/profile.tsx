@@ -26,8 +26,9 @@ export const ProfilePage = () => {
             UserAttributes: res.data.UserAttributes,
           });
           addToast({
-            text: "Profile was updated",
-            type: "success",
+            title: "Profile was updated",
+            message: "",
+            status: "normal",
           });
           helpers.resetForm({
             values: {
@@ -36,10 +37,11 @@ export const ProfilePage = () => {
             },
           });
         })
-        .catch((error) => {
+        .catch(() => {
           addToast({
-            type: "error",
-            text: error.message,
+            status: "critical",
+            title: "Unexpected error",
+            message: "Try again",
           });
         });
     },
@@ -54,14 +56,16 @@ export const ProfilePage = () => {
       )
         .then(() => {
           addToast({
-            text: "Password was updated",
-            type: "success",
+            title: "Password was updated",
+            message: "",
+            status: "normal",
           });
         })
-        .catch((err) => {
+        .catch(() => {
           addToast({
-            type: "error",
-            text: err.message,
+            status: "critical",
+            title: "Unexpected error",
+            message: "Try again",
           });
         })
         .finally(() => {

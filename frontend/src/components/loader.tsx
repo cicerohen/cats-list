@@ -6,7 +6,7 @@ type Props = {
   title?: string;
 };
 
-export const Loader = ({ title, className }: Props) => {
+export const Loader = ({ className }: Props) => {
   return (
     <p
       className={twMerge(

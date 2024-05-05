@@ -1,5 +1,7 @@
+import { NotificationProps } from "grommet";
 export type Toast = {
   id: string;
-  type: "success" | "warning" | "error" | "info";
-  text: string;
+  status: NotificationProps["status"];
+  title: string;
+  message: string;
 };

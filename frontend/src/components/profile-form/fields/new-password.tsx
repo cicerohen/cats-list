@@ -1,5 +1,5 @@
+import { TextInput } from "grommet";
 import { Field } from "../../field";
-import { InputPassword } from "../../input-password";
 import { PassswordValues } from "../use-password-form";
 
 export const NewPassword = () => {
@@ -10,7 +10,9 @@ export const NewPassword = () => {
     >
       {({ field, form }) => {
         return (
-          <InputPassword
+          <TextInput
+            id={field.name}
+            type="password"
             name={field.name}
             disabled={form.isSubmitting}
             onPaste={(e) => e.preventDefault()}

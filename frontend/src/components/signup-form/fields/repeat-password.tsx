@@ -1,5 +1,5 @@
 import { Field } from "../../field";
-import { InputPassword } from "../../input-password";
+import { TextInput } from "grommet";
 import { Values } from "../use-signup-form";
 
 export const RepeatPassword = () => {
@@ -10,10 +10,11 @@ export const RepeatPassword = () => {
     >
       {({ field, form }) => {
         return (
-          <InputPassword
+          <TextInput
+            type="password"
+            id={field.name}
             name={field.name}
             disabled={form.isSubmitting}
-            onPaste={(e) => e.preventDefault()}
             value={field.value}
             onChange={field.onChange}
             onBlur={field.onBlur}

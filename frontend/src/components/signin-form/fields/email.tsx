@@ -1,18 +1,20 @@
 import { Field } from "../../field";
+import { TextInput } from "grommet";
+
 import { Values } from "../use-signin-form";
 
 export const Email = () => {
   return (
     <Field<Values["email"]> name="email" label="Email">
-      {({ field }) => {
+      {({ field, form }) => {
         return (
-          <input
+          <TextInput
             id={field.name}
             name={field.name}
             value={field.value}
+            disabled={form.isSubmitting}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            className="h-12 w-full rounded-md border border-gray-300 px-4 disabled:bg-gray-100 disabled:opacity-70"
           />
         );
       }}

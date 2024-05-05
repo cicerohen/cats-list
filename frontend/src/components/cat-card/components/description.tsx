@@ -22,11 +22,7 @@ export const Description = ({ editor }: Props) => {
         },
       ]}
     >
-      <Editable
-        readOnly
-        className="mt-4 text-gray-600"
-        renderLeaf={renderLeaf}
-      />
+      <Editable readOnly renderLeaf={renderLeaf} style={{ fontSize: "1rem" }} />
     </Slate>
   );
 };

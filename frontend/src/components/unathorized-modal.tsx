@@ -1,8 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "grommet";
 import { Modal, Props } from "./modal";
 
 export const UnathorizedModal = ({ onClose }: Pick<Props, "onClose">) => {
   const location = useLocation();
+  const navigate = useNavigate();
   return (
     <Modal
       show={location.pathname !== "/signin"}
@@ -12,12 +14,15 @@ export const UnathorizedModal = ({ onClose }: Pick<Props, "onClose">) => {
       className="z-50"
       classNames={{ panel: "max-w-lg" }}
     >
-      <Link
-        to="/signin"
-        className="inline-block rounded-md bg-green-700 px-5 py-3 text-white"
-      >
-        Sign in
-      </Link>
+      <Button
+        href="/signin"
+        primary
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/signin");
+        }}
+        label="Sign in"
+      />
     </Modal>
   );
 };

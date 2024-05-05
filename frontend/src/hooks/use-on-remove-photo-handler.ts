@@ -29,15 +29,17 @@ export const useOnRemovePhotoHandler = ({ petForm }: Parameters) => {
       .then(() => {
         petForm.setFieldValue("photo", initialValues.photo);
         addToast({
-          type: "success",
-          text: "Photo was removed",
+          status: "normal",
+          title: "Photo was removed",
+          message: "",
         });
         fetchCats();
       })
       .catch((error) => {
         addToast({
-          type: "error",
-          text: error.message,
+          status: "critical",
+          title: error.message,
+          message: "",
         });
       })
       .finally(() => {

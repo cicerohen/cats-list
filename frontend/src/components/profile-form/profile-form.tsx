@@ -1,4 +1,6 @@
 import { FormikProvider } from "formik";
+import { Button, Spinner } from "grommet";
+
 import { useProfileForm } from "./use-profile-form";
 import { usePasswordForm } from "./use-password-form";
 
@@ -6,8 +8,6 @@ import { Name } from "./fields/name";
 import { Email } from "./fields/email";
 import { Password } from "./fields/password";
 import { NewPassword } from "./fields/new-password";
-
-import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 
 export type Props = {
   profileForm: ReturnType<typeof useProfileForm>;
@@ -21,16 +21,18 @@ export const ProfileForm = ({ profileForm, passwordForm }: Props) => {
         <form className="space-y-4" onSubmit={profileForm.handleSubmit}>
           <Name />
           <Email />
-          <button
+          <Button
             type="submit"
+            icon={
+              (profileForm.isSubmitting && (
+                <Spinner size="xsmall" color="white" />
+              )) ||
+              undefined
+            }
+            primary
+            label="Save"
             disabled={profileForm.isSubmitting || !profileForm.dirty}
-            className="flex items-center rounded-md  border border-gray-200 bg-green-700 px-5 py-2 font-medium text-white disabled:opacity-50"
-          >
-            {profileForm.isSubmitting && (
-              <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            <span>Save</span>
-          </button>
+          />
         </form>
       </FormikProvider>
       <FormikProvider value={passwordForm}>
@@ -38,18 +40,22 @@ export const ProfileForm = ({ profileForm, passwordForm }: Props) => {
           <p className="text-gray-600">Change password</p>
           <Password />
           <NewPassword />
-          <button
+          <Button
             type="submit"
+            icon={
+              (passwordForm.isSubmitting && (
+                <Spinner size="xsmall" color="white" />
+              )) ||
+              undefined
+            }
+            primary
+            label="Save"
             disabled={
               passwordForm.isSubmitting ||
               !passwordForm.dirty ||
               !passwordForm.isValid
             }
-            className="flex items-center rounded-md  border border-gray-200 bg-green-700  px-5 py-2 font-medium text-white disabled:opacity-50"
-          >
-            {passwordForm.isSubmitting && <ArrowPathIcon className="h-5 w-5" />}
-            <span>Save</span>
-          </button>
+          />
         </form>
       </FormikProvider>
     </div>

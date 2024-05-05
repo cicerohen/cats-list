@@ -45,8 +45,9 @@ export const useOnChangePhotoHandler = ({ petForm }: Parameters) => {
       })
       .catch((error) => {
         addToast({
-          type: "error",
-          text: error.message,
+          status: "critical",
+          title: error.message,
+          message: "",
         });
       })
       .finally(() => {

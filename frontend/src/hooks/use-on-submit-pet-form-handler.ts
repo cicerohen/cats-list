@@ -24,8 +24,9 @@ export const useOnSubmitPetFormHandler = () => {
             });
 
             addToast({
-              type: "success",
-              text: "Cat was added",
+              status: "normal",
+              title: "Cat was added",
+              message: "",
             });
 
             fetchCats();
@@ -33,8 +34,9 @@ export const useOnSubmitPetFormHandler = () => {
           })
           .catch((error) => {
             addToast({
-              type: "error",
-              text: error.message,
+              status: "critical",
+              title: error.message,
+              message: "",
             });
           });
 
@@ -48,16 +50,18 @@ export const useOnSubmitPetFormHandler = () => {
           });
 
           addToast({
-            type: "success",
-            text: "Cat was updated",
+            status: "normal",
+            title: "Cat was updated",
+            message: "",
           });
 
           fetchCats();
         })
         .catch((error) => {
           addToast({
-            type: "error",
-            text: error.message,
+            status: "critical",
+            title: error.message,
+            message: "",
           });
         });
     },

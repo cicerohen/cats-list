@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import { Modal } from "../components/modal";
 import { SignInForm } from "../components/signin-form";
 import { useSignInForm } from "../components/signin-form/use-signin-form";
@@ -28,15 +29,17 @@ export const SignInPage = () => {
         .then((data) => {
           setAuthentication(data.data);
           addToast({
-            text: "Sign in sucessfuly",
-            type: "success",
+            title: "Sign in sucessfuly",
+            message: "",
+            status: "normal",
           });
           closeModal();
         })
-        .catch((error) => {
+        .catch(() => {
           addToast({
-            type: "error",
-            text: error.message,
+            status: "critical",
+            title: "Unexpected error",
+            message: "Try again",
           });
         });
     },

@@ -1,6 +1,6 @@
 import { BaseEditor } from "slate";
+import { Box } from "grommet";
 import { ReactEditor } from "slate-react";
-import { twMerge } from "tailwind-merge";
 import { useFormikContext } from "formik";
 import { Descendant } from "slate";
 import { Slate, Editable, RenderLeafProps } from "slate-react";
@@ -39,26 +39,23 @@ export const Description = ({ editor }: Props) => {
             ]}
             onChange={onChange}
           >
-            <div
-              className={twMerge(
-                "rounded-md border border-gray-300",
-                isSubmitting && "bg-gray-100",
-              )}
-            >
-              <section className="border-b border-gray-200">
-                <div className="flex space-x-2 p-4">
+            <Box border round="small">
+              <Box border={{ side: "bottom" }}>
+                <Box flex direction="row" pad="small">
                   <MarkButton mark="bold" disabled={isSubmitting} />
                   <MarkButton mark="italic" disabled={isSubmitting} />
                   <MarkButton mark="underline" disabled={isSubmitting} />
-                </div>
-              </section>
+                </Box>
+              </Box>
               <Editable
                 placeholder="Describe your cat"
-                className="p-4"
+                style={{
+                  padding: "1rem",
+                }}
                 readOnly={isSubmitting}
                 renderLeaf={renderLeaf}
               />
-            </div>
+            </Box>
           </Slate>
         );
       }}

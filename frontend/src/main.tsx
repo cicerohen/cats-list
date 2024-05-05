@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom/client";
+import { Grommet } from "grommet";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Toaster } from "./components/toaster";
 
@@ -73,12 +74,14 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <AuthenticationProvider>
-    <CatsProvider>
-      <ToasterProvider>
-        <RouterProvider router={router} />
-        <Toaster />
-      </ToasterProvider>
-    </CatsProvider>
-  </AuthenticationProvider>,
+  <Grommet>
+    <AuthenticationProvider>
+      <CatsProvider>
+        <ToasterProvider>
+          <RouterProvider router={router} />
+          <Toaster />
+        </ToasterProvider>
+      </CatsProvider>
+    </AuthenticationProvider>
+  </Grommet>,
 );

@@ -25,8 +25,9 @@ export const useOnRemoveCatHandler = ({ petForm }: Parameters) => {
           values: initialValues,
         });
         addToast({
-          type: "success",
-          text: "Cat was removed",
+          status: "normal",
+          title: "Cat was removed",
+          message: "",
         });
 
         fetchCats();
@@ -34,8 +35,9 @@ export const useOnRemoveCatHandler = ({ petForm }: Parameters) => {
       })
       .catch((error) => {
         addToast({
-          type: "error",
-          text: error.message,
+          status: "critical",
+          title: error.message,
+          message: "",
         });
       })
       .finally(() => {

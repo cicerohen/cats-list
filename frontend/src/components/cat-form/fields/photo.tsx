@@ -1,8 +1,5 @@
 import { useRef } from "react";
-import PhotoIcon from "@heroicons/react/24/outline/PhotoIcon";
-import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
-import ArrowPathIcon from "@heroicons/react/24/outline/ArrowPathIcon";
-
+import { Avatar, Image, Box, Spinner, Button } from "grommet";
 import { Field } from "../../field";
 import { Values } from "../use-cat-form";
 
@@ -27,54 +24,66 @@ export const Photo = ({ loading, disabled, onChange, onRemove }: Props) => {
     <Field<Values["photo"]> name="photo" label="">
       {({ field }) => {
         return (
-          <div className="w-40">
-            <div className="relative h-40 w-40 overflow-hidden rounded-full border border-gray-300">
-              {field.value && (
-                <div
-                  style={
-                    {
-                      "--bg-url": `url(${field.value.url})`,
-                    } as React.CSSProperties
-                  }
-                  className="h-40 w-40 rounded-full bg-[image:var(--bg-url)] bg-cover bg-center bg-no-repeat"
-                ></div>
-              )}
-              {!field.value.url && (
-                <div className="lef-0 absolute top-0 flex h-40 w-40 items-center justify-center rounded-full">
-                  <PhotoIcon className="h-8 w-8 text-gray-300" />
-                </div>
-              )}
-
-              {loading && (
-                <div className="absolute left-0 top-0 z-10 flex h-40 w-40 items-center justify-center rounded-full bg-black/80">
-                  <ArrowPathIcon className="h-5 w-5 animate-spin text-white" />
-                </div>
-              )}
-
-              <input
-                ref={inputFileRef}
-                type="file"
-                disabled={disabled}
-                title="Change photo"
-                aria-label="Change photo"
-                onChange={onChangeHandler}
-                accept=".jpg, .jpeg, .png"
-                className="absolute left-0 top-0 h-full w-full cursor-pointer rounded-full opacity-0"
-              />
-            </div>
-            <div className="mt-4 flex items-center justify-center">
-              <button
-                type="button"
-                title="Remove current photo"
-                disabled={!field.value.key || !field.value.url || disabled}
-                className="flex items-center rounded-md border border-red-100 px-3 py-1 text-xs text-red-600 enabled:hover:bg-red-100 disabled:opacity-50"
-                onClick={onRemove}
+          <Box gap="small" flex direction="column" align="center">
+            <Box
+              style={{
+                position: "relative",
+              }}
+            >
+              <Avatar
+                size="3xl"
+                overflow="hidden"
+                style={{
+                  position: "relative",
+                }}
               >
-                <TrashIcon className="mr-1 h-4 w-4" />
-                <span>Remove photo</span>
-              </button>
-            </div>
-          </div>
+                {loading && (
+                  <Box
+                    background="dark-1"
+                    flex
+                    justify="center"
+                    align="center"
+                    width="100%"
+                    height="100%"
+                    style={{
+                      position: "absolute",
+                      zIndex: 3,
+                    }}
+                  >
+                    <Spinner size="small" color="white" />
+                  </Box>
+                )}
+                <Image
+                  fit="cover"
+                  src={field.value.url}
+                  fallback="//v2.grommet.io/assets/IMG_4245.jpg"
+                />
+                <input
+                  ref={inputFileRef}
+                  type="file"
+                  disabled={loading}
+                  title="Change photo"
+                  aria-label="Change photo"
+                  onChange={onChangeHandler}
+                  accept=".jpg, .jpeg, .png"
+                  style={{
+                    position: "absolute",
+                    opacity: 0,
+                    background: "#fc0",
+                    cursor: "pointer",
+                    inset: 0,
+                    borderRadius: "100%",
+                  }}
+                />
+              </Avatar>
+            </Box>
+            <Button
+              label="Remove photo"
+              size="small"
+              disabled={disabled || !field.value.url}
+              onClick={onRemove}
+            />
+          </Box>
         );
       }}
     </Field>

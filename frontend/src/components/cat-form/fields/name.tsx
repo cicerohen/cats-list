@@ -1,22 +1,19 @@
-import { useFormikContext } from "formik";
-
+import { TextInput } from "grommet";
 import { Field } from "../../field";
 import { Values } from "../use-cat-form";
 
 export const Name = () => {
-  const { isSubmitting } = useFormikContext();
   return (
     <Field<Values["name"]> name="name" label="Name">
-      {({ field }) => {
+      {({ field, form }) => {
         return (
-          <input
-            placeholder="Enter your cat name"
-            disabled={isSubmitting}
+          <TextInput
+            id={field.name}
             name={field.name}
             value={field.value}
+            disabled={form.isSubmitting}
             onChange={field.onChange}
             onBlur={field.onBlur}
-            className="h-12 w-full rounded-md border border-gray-300 px-4 disabled:bg-gray-100 disabled:opacity-70"
           />
         );
       }}

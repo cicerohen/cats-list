@@ -1,5 +1,5 @@
+import { TextInput } from "grommet";
 import { Field } from "../../field";
-import { InputPassword } from "../../input-password";
 import { PassswordValues } from "../use-password-form";
 
 export const Password = () => {
@@ -7,7 +7,9 @@ export const Password = () => {
     <Field<PassswordValues["password"]> name="password" label="Password">
       {({ field, form }) => {
         return (
-          <InputPassword
+          <TextInput
+            id={field.name}
+            type="password"
             name={field.name}
             disabled={form.isSubmitting}
             value={field.value}

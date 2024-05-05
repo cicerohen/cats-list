@@ -1,5 +1,5 @@
 import { FormikProvider } from "formik";
-import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
+import { Button, Spinner } from "grommet";
 
 import { Email } from "./fields/email";
 import { Password } from "./fields/password";
@@ -11,19 +11,19 @@ export type Props = ReturnType<typeof useSignInForm>;
 export const SignInForm = (props: Props) => {
   return (
     <FormikProvider value={props}>
-      <form className="space-y-4" onSubmit={props.handleSubmit}>
+      <form onSubmit={props.handleSubmit}>
         <Email />
         <Password />
-        <button
+        <Button
           type="submit"
+          primary
+          icon={
+            (props.isSubmitting && <Spinner size="small" color="white" />) ||
+            undefined
+          }
+          label="Sign in"
           disabled={props.isSubmitting || !props.dirty}
-          className="flex items-center rounded-md bg-green-700 px-7 py-3 text-white disabled:opacity-70"
-        >
-          {props.isSubmitting && (
-            <ArrowPathIcon className="mr-2 h-4 w-4 animate-spin" />
-          )}
-          Sign in
-        </button>
+        />
       </form>
     </FormikProvider>
   );

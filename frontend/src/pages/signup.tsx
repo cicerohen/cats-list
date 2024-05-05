@@ -31,15 +31,17 @@ export const SignUpPage = () => {
         .then((data) => {
           setAuthentication(data.data);
           addToast({
-            text: "Sign up sucessfuly",
-            type: "success",
+            title: "Sign up sucessfuly",
+            message: "",
+            status: "normal",
           });
           onCloseModal();
         })
         .catch((err) => {
           addToast({
-            text: err.message,
-            type: "error",
+            title: err.message,
+            message: "",
+            status: "critical",
           });
         });
     },
