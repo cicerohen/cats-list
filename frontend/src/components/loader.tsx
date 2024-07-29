@@ -1,16 +1,11 @@
 import { twMerge } from "tailwind-merge";
 import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 
-type Props = {
-  className?: string;
-  title?: string;
-};
-
-export const Loader = ({ title, className }: Props) => {
+export const Loader = ({ className }: { className?: string }) => {
   return (
     <p
       className={twMerge(
-        "fixed left-0 top-0 z-30 flex h-full w-full items-center justify-center bg-white text-gray-700",
+        "fixed left-0 top-0 z-30 flex h-full w-full items-center justify-center bg-white/75 text-gray-700",
         className,
       )}
     >

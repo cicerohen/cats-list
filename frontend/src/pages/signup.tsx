@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { Modal } from "../components/modal";
-import { SignUpForm } from "../components/signup-form/signup-form";
-import { useSignUpForm } from "../components/signup-form/use-signup-form";
+import { SignUpForm, useSignUpForm } from "../components/signup-form";
 
 import { useToasterContext } from "../components/toaster/provider";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
@@ -46,8 +45,21 @@ export const SignUpPage = () => {
   });
 
   return (
-    <Modal title="Sign up" show onClose={onCloseModal}>
-      <SignUpForm {...form} />
-    </Modal>
+    <Modal.Root show>
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Close onClick={onCloseModal} />
+          <Modal.Title>Sign Up</Modal.Title>
+        </Modal.Header>
+        <SignUpForm.Root {...form}>
+          <SignUpForm.Name />
+          <SignUpForm.Email />
+          <SignUpForm.Password />
+          <SignUpForm.RepeatPassword />
+          <SignUpForm.Submit />
+        </SignUpForm.Root>
+      </Modal.Content>
+    </Modal.Root>
   );
 };

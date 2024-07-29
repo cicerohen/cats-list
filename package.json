@@ -21,9 +21,7 @@
     "lint": "turbo run lint",
     "tsc": "turbo run tsc",
     "clean": "turbo run clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "storybook": "turbo storybook",
-    "build-storybook": "turbo build-storybook"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "dotenv-cli": "^7.0.0",

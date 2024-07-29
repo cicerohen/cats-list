@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
-import {} from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Modal } from "../components/modal";
 import { CatForm } from "../components/cat-form";
 
 import { useFetchApi } from "../hooks/use-fetch-api";
-import { useOnChangePhotoHandler } from "../hooks/use-on-change-photo-handler";
-import { useOnRemovePhotoHandler } from "../hooks/use-on-remove-photo-handler";
-import { useOnSubmitPetFormHandler } from "../hooks/use-on-submit-pet-form-handler";
-import { useOnRemoveCatHandler } from "../hooks/use-on-remove-cat-handler";
+import { useOnChangePhotoHandler } from "../hooks/use-onchange-photo-handler";
+import { useOnRemovePhotoHandler } from "../hooks/use-onremove-photo-handler";
+import { useOnSubmitPetFormHandler } from "../hooks/use-onsubmit-pet-form-handler";
+import { useOnRemoveCatHandler } from "../hooks/use-onremove-cat-handler";
 
 import { Age, Cat, Breed } from "@app/types";
 
 export const EditCatPage = () => {
   const [ages, setAges] = useState<Age[]>([]);
   const [breeds, setBreeds] = useState<Breed[]>([]);
-  const [showLoader, setShowLoader] = useState<boolean>(true);
 
   const fetchApi = useFetchApi();
   const navigation = useNavigate();
@@ -38,7 +36,7 @@ export const EditCatPage = () => {
       petForm,
     });
 
-  const onClose = () => {
+  const onCloseModal = () => {
     navigation(-1);
   };
 
@@ -53,22 +51,37 @@ export const EditCatPage = () => {
       petForm.resetForm({
         values: res[2].data,
       });
-      setShowLoader(false);
     });
   }, []);
 
   return (
-    <Modal title="Edit cat" show onClose={onClose} showLoader={showLoader}>
-      <CatForm
-        {...petForm}
-        ages={ages}
-        breeds={breeds}
-        removingCat={loadingOnRemoveCat}
-        loadingPhoto={loadingOnChangePhoto || loadingOnRemovePhoto}
-        onChangePhoto={onChangePhoto}
-        onRemovePhoto={onRemovePhoto}
-        onRemove={onRemove}
-      />
-    </Modal>
+    <Modal.Root show>
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Close onClick={onCloseModal} />
+          <Modal.Title>Edit cat</Modal.Title>
+        </Modal.Header>
+        <CatForm.Root {...petForm}>
+          <CatForm.Photo
+            loading={loadingOnChangePhoto || loadingOnRemovePhoto}
+            onChange={onChangePhoto}
+            onRemove={onRemovePhoto}
+          />
+          <CatForm.Name />
+          <CatForm.Age ages={ages} />
+          <CatForm.Breed breeds={breeds} />
+          <CatForm.Description editor={petForm.editor} />
+          <CatForm.ActionButtons>
+            <CatForm.Submit />
+            <CatForm.Remove
+              onClick={onRemove}
+              loading={loadingOnRemoveCat}
+              disabled={loadingOnChangePhoto || loadingOnRemovePhoto}
+            />
+          </CatForm.ActionButtons>
+        </CatForm.Root>
+      </Modal.Content>
+    </Modal.Root>
   );
 };

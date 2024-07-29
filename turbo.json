@@ -5,13 +5,6 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "storybook": {
-      "outputs": [],
-      "cache": false
-    },
-    "build-storybook": {
-      "outputs": []
-    },
     "lint": {
       "outputs": []
     },

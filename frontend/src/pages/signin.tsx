@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../components/modal";
-import { SignInForm } from "../components/signin-form";
-import { useSignInForm } from "../components/signin-form/use-signin-form";
+import { SignInForm, useSignInForm } from "../components/signin-form";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
 import { useToasterContext } from "../components/toaster/provider";
 import { useFetchApi } from "../hooks/use-fetch-api";
@@ -14,7 +13,7 @@ export const SignInPage = () => {
   const { addToast } = useToasterContext();
   const navigation = useNavigate();
 
-  const closeModal = () => {
+  const onCloseModal = () => {
     navigation("/");
   };
 
@@ -31,7 +30,7 @@ export const SignInPage = () => {
             text: "Sign in sucessfuly",
             type: "success",
           });
-          closeModal();
+          onCloseModal();
         })
         .catch((error) => {
           addToast({
@@ -43,8 +42,19 @@ export const SignInPage = () => {
   });
 
   return (
-    <Modal title="Sign in" show onClose={closeModal}>
-      <SignInForm {...form} />
-    </Modal>
+    <Modal.Root show>
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Title>Sign In</Modal.Title>
+          <Modal.Close onClick={onCloseModal} />
+        </Modal.Header>
+        <SignInForm.Root {...form}>
+          <SignInForm.Email />
+          <SignInForm.Password />
+          <SignInForm.Submit />
+        </SignInForm.Root>
+      </Modal.Content>
+    </Modal.Root>
   );
 };

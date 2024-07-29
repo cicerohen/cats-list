@@ -5,9 +5,9 @@ import { Modal } from "../components/modal";
 import { CatForm } from "../components/cat-form";
 
 import { useFetchApi } from "../hooks/use-fetch-api";
-import { useOnChangePhotoHandler } from "../hooks/use-on-change-photo-handler";
-import { useOnRemovePhotoHandler } from "../hooks/use-on-remove-photo-handler";
-import { useOnSubmitPetFormHandler } from "../hooks/use-on-submit-pet-form-handler";
+import { useOnChangePhotoHandler } from "../hooks/use-onchange-photo-handler";
+import { useOnRemovePhotoHandler } from "../hooks/use-onremove-photo-handler";
+import { useOnSubmitPetFormHandler } from "../hooks/use-onsubmit-pet-form-handler";
 
 import { Age, Breed } from "@app/types";
 
@@ -43,15 +43,28 @@ export const AddCatPage = () => {
   }, []);
 
   return (
-    <Modal title="Add a cat" show onClose={onCloseModal}>
-      <CatForm
-        {...petForm}
-        ages={ages}
-        breeds={breeds}
-        loadingPhoto={loadingOnChangePhoto || loadingOnRemovePhoto}
-        onChangePhoto={onChangePhoto}
-        onRemovePhoto={onRemovePhoto}
-      />
-    </Modal>
+    <Modal.Root show>
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Close onClick={onCloseModal} />
+          <Modal.Title>Add a cat</Modal.Title>
+        </Modal.Header>
+        <CatForm.Root {...petForm}>
+          <CatForm.Photo
+            loading={loadingOnChangePhoto || loadingOnRemovePhoto}
+            onChange={onChangePhoto}
+            onRemove={onRemovePhoto}
+          />
+          <CatForm.Name />
+          <CatForm.Age ages={ages} />
+          <CatForm.Breed breeds={breeds} />
+          <CatForm.Description editor={petForm.editor} />
+          <div>
+            <CatForm.Submit />
+          </div>
+        </CatForm.Root>
+      </Modal.Content>
+    </Modal.Root>
   );
 };

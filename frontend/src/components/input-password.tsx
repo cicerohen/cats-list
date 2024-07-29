@@ -3,9 +3,9 @@ import { useState } from "react";
 import EyeSlashIcon from "@heroicons/react/24/solid/EyeSlashIcon";
 import EyeIcon from "@heroicons/react/24/solid/EyeIcon";
 
-type Props = React.InputHTMLAttributes<HTMLInputElement>;
-
-export const InputPassword = (props: Props) => {
+export const InputPassword = (
+  props: React.InputHTMLAttributes<HTMLInputElement>,
+) => {
   const [show, setShow] = useState(false);
   return (
     <div className="relative flex h-12 w-full rounded-md border border-gray-300 disabled:bg-gray-100 disabled:opacity-70">

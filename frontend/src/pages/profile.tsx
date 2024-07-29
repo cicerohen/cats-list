@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "../components/modal";
-import { ProfileForm } from "../components/profile-form";
+import { ProfileForm, useProfileForm } from "../components/profile-form";
+import { PasswordForm, usePasswordForm } from "../components/password-form";
 
-import { useProfileForm } from "../components/profile-form/use-profile-form";
-import { usePasswordForm } from "../components/profile-form/use-password-form";
 import { useToasterContext } from "../components/toaster/provider";
 import { useFetchApi } from "../hooks/use-fetch-api";
 import { useAuthenticationContext } from "../contexts/authentication-provider";
@@ -84,8 +83,26 @@ export const ProfilePage = () => {
   }, []);
 
   return (
-    <Modal show title="Edit profile" onClose={onCloseModal}>
-      <ProfileForm profileForm={profileForm} passwordForm={passwordForm} />
-    </Modal>
+    <Modal.Root show>
+      <Modal.Backdrop />
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Close onClick={onCloseModal} />
+          <Modal.Title>Edit Profile</Modal.Title>
+        </Modal.Header>
+        <div className="space-y-4">
+          <ProfileForm.Root {...profileForm}>
+            <ProfileForm.Name />
+            <ProfileForm.Email />
+            <ProfileForm.Submit />
+          </ProfileForm.Root>
+          <PasswordForm.Root {...passwordForm}>
+            <PasswordForm.Password />
+            <PasswordForm.NewPassword />
+            <PasswordForm.Submit />
+          </PasswordForm.Root>
+        </div>
+      </Modal.Content>
+    </Modal.Root>
   );
 };

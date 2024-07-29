@@ -3,14 +3,17 @@ import { createPortal } from "react-dom";
 import { twMerge } from "tailwind-merge";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
-type Props = {
+export const Panel = ({
+  title,
+  isOpen,
+  children,
+  onClose,
+}: {
   title: string;
   isOpen: boolean;
   children?: React.ReactNode;
   onClose: () => void;
-};
-
-export const Panel = ({ title, isOpen, children, onClose }: Props) => {
+}) => {
   useEffect(() => {
     document.body.style.overflow = (isOpen && "hidden") || "";
   }, [isOpen]);
