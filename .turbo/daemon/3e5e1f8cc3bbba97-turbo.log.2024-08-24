@@ -1,0 +1,6 @@
+2024-08-24T20:34:50.104627Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/.turbo-cookie"), AnchoredSystemPathBuf(".turbo/cookies/1.cookie")}
+2024-08-24T20:34:50.104839Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-08-24T20:34:51.403504Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/vite.config.ts.timestamp-1724531691377-8778c00df4818.mjs")}
+2024-08-24T20:34:51.403516Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-24T20:34:51.803053Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/vite.config.ts.timestamp-1724531691377-8778c00df4818.mjs")}
+2024-08-24T20:34:51.803073Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))

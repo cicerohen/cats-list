@@ -1,0 +1,16 @@
+2024-08-19T12:55:54.763463Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/1.cookie"), AnchoredSystemPathBuf(".turbo/cookies/.turbo-cookie")}
+2024-08-19T12:55:54.763531Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-08-19T12:55:55.662989Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/vite.config.ts.timestamp-1724072155612-3c682db2adabb.mjs")}
+2024-08-19T12:55:55.663002Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-19T12:55:55.863293Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/vite.config.ts.timestamp-1724072155612-3c682db2adabb.mjs")}
+2024-08-19T12:55:55.863370Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-19T13:06:31.654314Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/hooks/use-fetch-api.ts")}
+2024-08-19T13:06:31.655423Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-19T13:07:53.646258Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/hooks/use-fetch-api.ts")}
+2024-08-19T13:07:53.646295Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-19T13:14:25.729908Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/hooks/use-fetch-api.ts")}
+2024-08-19T13:14:25.731428Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-19T14:07:48.500852Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/hooks/use-fetch-api.ts")}
+2024-08-19T14:07:48.502723Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-08-19T14:08:41.592172Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/hooks/use-fetch-api.ts")}
+2024-08-19T14:08:41.592277Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))

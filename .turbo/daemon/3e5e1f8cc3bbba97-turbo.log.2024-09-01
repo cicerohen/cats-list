@@ -1,0 +1,110 @@
+2024-09-01T12:30:49.162597Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf(".turbo/cookies/1.cookie"), AnchoredSystemPathBuf(".turbo/cookies/.turbo-cookie")}
+2024-09-01T12:30:49.162610Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Root, path: AnchoredSystemPathBuf("") }}))
+2024-09-01T12:30:51.164066Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/vite.config.ts.timestamp-1725193851100-0def211e36a63.mjs")}
+2024-09-01T12:30:51.164166Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:30:51.661919Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/vite.config.ts.timestamp-1725193851100-0def211e36a63.mjs")}
+2024-09-01T12:30:51.661930Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:39:09.352931Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:39:09.353289Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:39:25.651096Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:39:25.651134Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:39:37.250768Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:39:37.250807Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:40:00.151106Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:40:00.151157Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:40:06.150332Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:40:06.150428Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:40:45.350233Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/add-cat.tsx")}
+2024-09-01T12:40:45.350262Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:40:53.249766Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/add-cat.tsx")}
+2024-09-01T12:40:53.249840Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:40:53.311480Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T12:41:49.149211Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:41:49.149241Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:42:00.748471Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/add-cat.tsx")}
+2024-09-01T12:42:00.748526Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:42:18.747141Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/add-cat.tsx")}
+2024-09-01T12:42:18.747281Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:42:18.749608Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T12:47:27.440411Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:47:27.440500Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:48:05.939262Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:48:05.939290Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:48:12.939685Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:48:12.939757Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:49:48.137674Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:49:48.137815Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:50:13.437111Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:50:13.437207Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:50:54.134926Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:50:54.134957Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:51:08.934414Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:51:08.934574Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:51:22.835348Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-form/index.tsx")}
+2024-09-01T12:51:22.835384Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:51:22.835489Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T12:53:19.432601Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cats-list")}
+2024-09-01T12:53:19.432635Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:53:19.469848Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T12:53:24.434023Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cats-list/index.tsx")}
+2024-09-01T12:53:24.434159Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T12:59:40.332465Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cats-list/index.tsx")}
+2024-09-01T12:59:40.334418Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:02:10.920501Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cats-list/index.tsx")}
+2024-09-01T13:02:10.920548Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:02:21.418352Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cats-list/index.tsx")}
+2024-09-01T13:02:21.418450Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:02:21.418657Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T13:04:18.516479Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cats-list/index.tsx")}
+2024-09-01T13:04:18.516555Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:04:21.915436Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:04:21.915490Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:04:27.315764Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:04:27.315801Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:04:27.315826Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T13:05:40.240507Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:05:40.240567Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:05:40.341375Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T13:07:45.030156Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-card/index.tsx")}
+2024-09-01T13:07:45.030376Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:17:54.827424Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/components/cat-card/index.tsx")}
+2024-09-01T13:17:54.829339Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:18:46.020292Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:18:46.020577Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:19:18.218200Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:19:18.218237Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:19:18.218279Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T13:19:23.016841Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:19:23.016849Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:19:23.017699Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T13:20:04.717738Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:20:04.717795Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:21:29.115192Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:21:29.115248Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:21:51.317103Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:21:51.317324Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:22:02.815305Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:22:02.815333Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:22:44.213200Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:22:44.213274Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:22:53.742245Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:22:53.742421Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:24:07.510933Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/contexts/cats-provider.tsx")}
+2024-09-01T13:24:07.510963Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:24:17.511227Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:24:17.511273Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:33:58.722177Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/home.tsx")}
+2024-09-01T13:33:58.723487Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:33:58.763855Z  WARN turborepo_lib::package_changes_watcher: hashes are the same, no need to rerun
+2024-09-01T13:35:53.712330Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/edit-cat.tsx")}
+2024-09-01T13:35:53.712411Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:48:15.822094Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/edit-cat.tsx")}
+2024-09-01T13:48:15.824048Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:48:23.512522Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/edit-cat.tsx")}
+2024-09-01T13:48:23.512563Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:48:58.712130Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/edit-cat.tsx")}
+2024-09-01T13:48:58.712183Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:49:09.213109Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/edit-cat.tsx")}
+2024-09-01T13:49:09.213167Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))
+2024-09-01T13:49:48.612716Z  WARN turborepo_lib::package_changes_watcher: changed_files: {AnchoredSystemPathBuf("frontend-vue/src/pages/edit-cat.tsx")}
+2024-09-01T13:49:48.612744Z  WARN turborepo_lib::package_changes_watcher: changed_packages: Ok(Some({WorkspacePackage { name: Other("@app/frontend-vue"), path: AnchoredSystemPathBuf("frontend-vue") }}))

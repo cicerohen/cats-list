@@ -4,8 +4,10 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "frontend",
+      "frontend-react",
+      "frontend-vue",
       "backend",
+      "common",
       "types"
     ],
     "nohoist": [
@@ -24,15 +26,30 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "typescript": "^5.0.2",
+    "vite": "^5.3.1",
+    "tailwindcss": "^3.2.4",
+    "jsdom": "^24.1.0",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.14.5",
     "dotenv-cli": "^7.0.0",
-    "eslint-config-custom": "*",
-    "prettier": "^3.0.1",
+    "eslint": "^8.57.0",
+    "autoprefixer": "^10.4.20",
+    "prettier": "^3.2.5",
+    "postcss": "^8.4.40",
     "prettier-plugin-tailwindcss": "^0.4.1",
-    "turbo": "latest"
+    "turbo": "latest",
+    "npm-run-all2": "^6.2.0"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "slate": "^0.94.1",
+    "tailwind-merge": "^1.13.2",
+    "yup": "^1.2.0",
+    "formik": "^2.4.2",
+    "class-variance-authority": "^0.7.0"
+  },
   "packageManager": "yarn@1.22.18"
 }
